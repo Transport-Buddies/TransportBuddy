@@ -41,7 +41,7 @@ Transport_buddy
 1. Clone the repository:
 
    ```
-   git clone <repository-url>
+   git clone https://github.com/Mahamedm/TransportBuddy.git
    cd Transport_buddy
    ```
 
