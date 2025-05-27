@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+.hello-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #dbdbdb;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 20px;
+}
+
+.navigation-icon {
+  text-align: center;
+}
+
+.navigation-icon.active {
+  color: #161616;
+}
+
+.navigation-icon.inactive {
+  color: #aaa;
+}
+
+.navigation-icon.inactive {
+  color: #aaa;
+  cursor: pointer;
+}
+
+
+.navigation-icon:hover {
+  opacity: 0.8;
+}
