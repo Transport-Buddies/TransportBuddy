@@ -11,7 +11,8 @@ const MapPage: React.FC = () => {
   const mapRef = useRef<L.Map | null>(null); 
 
   useEffect(() => {
-    const map = L.map('map').setView([58.969975, 5.733107], 13);
+    // Initial view set to Stavanger, i'm not imaginative :(
+    const map = L.map('map').setView([58.969975, 5.733107], 13); 
     mapRef.current = map; 
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -20,6 +21,9 @@ const MapPage: React.FC = () => {
       maxZoom: 19,
     }).addTo(map);
 
+    map.setMinZoom(3);// Set minimum zoom level to 3, so the map doesn't break into loops
+
+    // home button below the zoom controls
     const HomeButton = L.Control.extend({
       options: { position: 'topleft' },
 
@@ -43,7 +47,8 @@ const MapPage: React.FC = () => {
     const homeButton = new HomeButton();
     map.addControl(homeButton);
 
-    let isMounted = true;
+    // tracks if the map component is still mounted. stops memory leaks and runtime errors
+    let isMounted = true; 
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
