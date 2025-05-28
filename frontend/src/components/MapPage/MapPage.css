@@ -7,7 +7,7 @@
 
 .leaflet-control-custom:hover {
   background-color: #1d1d1d; 
-  color: rgb(36, 36, 36); 
+  color: #000000; 
 }
 
 .leaflet-control-custom button {
@@ -17,7 +17,7 @@
   padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px #00000033;
 }
 
 .leaflet-control-custom:hover {

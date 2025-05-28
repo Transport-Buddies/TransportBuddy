@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { FaHome, FaMapMarkedAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 import './HelloPage.css';
 
 const HelloPage: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const isMobile = useMediaQuery({ maxWidth: 767 });
   useEffect(() => {
+    // test fetch to the backend API, to see if they're on the same network
     const fetchMessage = async () => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL;
@@ -18,7 +20,11 @@ const HelloPage: React.FC = () => {
         console.log('Response status:', response.status);
         const data = await response.json();
         console.log('API response:', data);
-        setMessage(data.message);
+        setTimeout(() => {
+          setMessage(data.message);
+        }, 1100);
+        // setMessage(data.message);
+        
       } catch (error) {
         console.error('Error fetching message:', error);
       }
@@ -27,7 +33,7 @@ const HelloPage: React.FC = () => {
     fetchMessage();
   }, []);
   const [activeButton, setActiveButton] = useState<'home' | 'maps'>('home');
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate();
 
   const handleNavigation = (page: 'home' | 'maps') => {
     setActiveButton(page);
@@ -39,17 +45,26 @@ const HelloPage: React.FC = () => {
   };
   return (
     <div className="hello-page">
-      <h1 className="message">{message || 'Loading...'}</h1>
-      
-      <div 
-      className="navigation" style={{ width: isMobile ? '80%' : '30%' }}>
-        <div className={`navigation-icon ${activeButton === 'home' ? 'active' : 'inactive'}`}
-          onClick={() => handleNavigation('home')}>
+      {message ? <h1 className="message">{message}</h1> : <Loader />}
+
+      <div
+        className="navigation"
+        style={{ width: isMobile ? '80%' : '30%' }}
+      >
+        <div
+          className={`navigation-icon ${
+            activeButton === 'home' ? 'active' : 'inactive'
+          }`}
+          onClick={() => handleNavigation('home')}
+        >
           <FaHome size={30} />
           <p>Home</p>
         </div>
 
-        <div className={`navigation-icon ${activeButton === 'maps' ? 'active' : 'inactive'}`}
+        <div
+          className={`navigation-icon ${
+            activeButton === 'maps' ? 'active' : 'inactive'
+          }`}
           onClick={() => handleNavigation('maps')}>
           <FaMapMarkedAlt size={30} />
           <p>Maps</p>
