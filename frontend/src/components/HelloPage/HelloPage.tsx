@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { FaHome, FaMapMarkedAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import './HelloPage.css';
 
 const HelloPage: React.FC = () => {
@@ -26,6 +27,16 @@ const HelloPage: React.FC = () => {
     fetchMessage();
   }, []);
   const [activeButton, setActiveButton] = useState<'home' | 'maps'>('home');
+  const navigate = useNavigate(); // React Router hook for navigation
+
+  const handleNavigation = (page: 'home' | 'maps') => {
+    setActiveButton(page);
+    if (page === 'maps') {
+      navigate('/maps'); 
+    } else {
+      navigate('/');
+    }
+  };
   return (
     <div className="hello-page">
       <h1 className="message">{message || 'Loading...'}</h1>
@@ -33,13 +44,13 @@ const HelloPage: React.FC = () => {
       <div 
       className="navigation" style={{ width: isMobile ? '80%' : '30%' }}>
         <div className={`navigation-icon ${activeButton === 'home' ? 'active' : 'inactive'}`}
-          onClick={() => setActiveButton('home')}>
+          onClick={() => handleNavigation('home')}>
           <FaHome size={30} />
           <p>Home</p>
         </div>
 
         <div className={`navigation-icon ${activeButton === 'maps' ? 'active' : 'inactive'}`}
-          onClick={() => setActiveButton('maps')}>
+          onClick={() => handleNavigation('maps')}>
           <FaMapMarkedAlt size={30} />
           <p>Maps</p>
         </div>
