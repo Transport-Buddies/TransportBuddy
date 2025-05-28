@@ -20,7 +20,12 @@ Transport_buddy
 │   │   ├── App.tsx        # Main App component
 │   │   ├── index.tsx      # Entry point for the React application
 │   │   └── components
-│   │       └── HelloPage.tsx    # Component that displays a greeting
+│   │       └── HelloPage
+│   │       │  ├── HelloPage.css
+│   │       │  └── HelloPage.tsx   # Only displays hello world, for now 
+│   │       └── MapPage
+│   │           ├── MapPage.css
+│   │           └── MapPage.tsx    # For now, just for Geolocation API testing
 │   ├── package.json       # Client-side dependencies and scripts
 │   └── tsconfig.json      # TypeScript configuration for the client
 └── README.md              # This documentation
