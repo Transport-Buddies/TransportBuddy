@@ -23,6 +23,8 @@ Transport_buddy
 │   │       └── HelloPage
 │   │       │  ├── HelloPage.css
 │   │       │  └── HelloPage.tsx   # Only displays hello world, for now 
+│   │       └── Loader
+│   │           └── Loader.tsx     # Basic Loading animation
 │   │       └── MapPage
 │   │           ├── MapPage.css
 │   │           └── MapPage.tsx    # For now, just for Geolocation API testing
