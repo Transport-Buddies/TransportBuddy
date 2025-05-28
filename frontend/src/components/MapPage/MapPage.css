@@ -1,0 +1,47 @@
+/* TODO: so far went with monochrome, it can get depressing, we'll have change it soon */
+
+.leaflet-control-custom {
+  color: #808080;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.leaflet-control-custom:hover {
+  background-color: #1d1d1d; 
+  color: rgb(36, 36, 36); 
+}
+
+.leaflet-control-custom button {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-control-custom:hover {
+  background-color: #1c1c1c;
+  opacity: 0.8;
+}
+
+
+.leaflet-control-attribution {
+  color: #000000;
+  font-size: 12px;
+}
+
+
+.leaflet-control-attribution a {
+  color: #555;
+  text-decoration: none;
+}
+
+.leaflet-control-attribution a:hover {
+  color: #101010;
+  text-decoration: underline;
+}
+
+#map {
+  filter: grayscale(100%);
+}
