@@ -23,7 +23,6 @@ const HelloPage: React.FC = () => {
         setTimeout(() => {
           setMessage(data.message);
         }, 1100);
-        // setMessage(data.message);
         
       } catch (error) {
         console.error('Error fetching message:', error);
