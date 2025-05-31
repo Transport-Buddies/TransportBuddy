@@ -1,0 +1,25 @@
+name: CI - Docker Compose Build
+
+on:
+  push:
+    branches: [staging]
+  pull_request:
+    branches: [staging]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      MONGO_URI: mongodb://localhost:27017
+      OPENWEATHER_API_KEY: placeholder_value
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker containers
+        run: |
+          docker compose -f docker-compose.yml build
