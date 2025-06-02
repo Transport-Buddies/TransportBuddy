@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGO_URI: mongodb://localhost:27017
-      OPENWEATHER_API_KEY: placeholder_value
+      OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
 
     steps:
       - name: Checkout repo
