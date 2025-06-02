@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
 import ReactDOMServer from 'react-dom/server';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
@@ -9,6 +9,9 @@ import './MapPage.css';
 const MapPage: React.FC = () => {
   const navigate = useNavigate();
   const mapRef = useRef<L.Map | null>(null); 
+  const busMarkerRef = useRef<L.Marker | null>(null); 
+  const locationQueue = useRef<{ lat: number; lon: number }[]>([]); 
+  const isMoving = useRef(false);
 
   useEffect(() => {
     // Initial view set to Stavanger, i'm not imaginative :(
@@ -47,6 +50,92 @@ const MapPage: React.FC = () => {
     const homeButton = new HomeButton();
     map.addControl(homeButton);
 
+    const busIcon = L.divIcon({
+      className: 'custom-marker-icon',
+      html: ReactDOMServer.renderToString(<FaBus size={30} color="blue" />),
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
+    });
+
+    const busMarker = L.marker([58.969975, 5.733107], { icon: busIcon }).addTo(map);
+    busMarkerRef.current = busMarker;
+
+     const fetchBusLocation = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/positions`);
+        const data = await response.json();
+        const { shape_pt_lat, shape_pt_lon } = data.location;
+
+        // used queue to smooth the bus movement
+        locationQueue.current.push({ lat: shape_pt_lat, lon: shape_pt_lon });
+
+        if (!isMoving.current) {
+          processQueue();
+        }
+      } catch (error) {
+        console.error('Error fetching bus location:', error);
+      }
+    };
+    const processQueue = () => {
+      if (locationQueue.current.length === 0) {
+        isMoving.current = false;
+        return;
+      }
+
+      isMoving.current = true;
+      const nextLocation = locationQueue.current.shift();
+
+      if (nextLocation && busMarkerRef.current) {
+        smoothMoveMarker(
+          busMarkerRef.current.getLatLng().lat,
+          busMarkerRef.current.getLatLng().lng,
+          nextLocation.lat,
+          nextLocation.lon,
+          () => {
+            // encountered a bug where the bus marker wouldn't move, here hoping this ductape holds the logic together
+            setTimeout(() => {
+              processQueue();
+            }, 50);
+          }
+        );
+      }
+    };
+    // smoothly moves the bus marker from its current position to the new position
+    const smoothMoveMarker = (
+      startLat: number,
+      startLon: number,
+      endLat: number,
+      endLon: number,
+      onComplete: () => void
+    ) => {
+      const duration = 5000; // 5 seconds for the animation to make it look "in realtime"
+      const steps = 50;
+      const interval = duration / steps;
+      let step = 0;
+
+      const latStep = (endLat - startLat) / steps;
+      const lonStep = (endLon - startLon) / steps;
+
+      const animate = () => {
+        if (step < steps) {
+          const newLat = startLat + latStep * step;
+          const newLon = startLon + lonStep * step;
+
+          if (busMarkerRef.current) {
+            busMarkerRef.current.setLatLng([newLat, newLon]);
+          }
+
+          step++;
+          setTimeout(animate, interval);
+        } else {
+          onComplete();
+        }
+      };
+
+      animate();
+    };
+    const intervalId = setInterval(fetchBusLocation, 5000);
+
     // tracks if the map component is still mounted. stops memory leaks and runtime errors
     let isMounted = true; 
 
@@ -83,6 +172,7 @@ const MapPage: React.FC = () => {
     }
 
     return () => {
+      clearInterval(intervalId);
       isMounted = false; 
       if (mapRef.current) {
         mapRef.current.remove(); 
