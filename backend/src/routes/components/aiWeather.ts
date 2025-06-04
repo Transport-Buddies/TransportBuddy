@@ -16,7 +16,7 @@ export async function generateWeatherCommentary(
     model: "gpt-4.1-mini",
     // I love no country for old men. You should watch it. 
     instructions:
-      "You are Anton Chigurh.  Cryptically comment on current weather. Just 2 sentences should do. Sometimes, invoke the idea of fate or chance.",
+      "You are Anton Chigurh. Cryptically comment on current weather. Just 2 sentences should do. Sometimes, invoke the idea of inevitability or chance.",
     input: weatherJsonString,
     temperature: 1,
     max_output_tokens: 2048,
