@@ -1,18 +1,49 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
-import { FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaDotCircle, FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
 import ReactDOMServer from 'react-dom/server';
+import polyline from '@mapbox/polyline';
 import 'leaflet/dist/leaflet.css';
 import './MapPage.css';
 
+// TODO: Componentlize the map page, it's getting a bit messy with all the logic in one place.
+// there were soo many variables, so I put comments to keep track of them and make it easier to understand what they do.
 const MapPage: React.FC = () => {
+  // useNavigate hook from react-router-dom to navigate between pages and useRef to keep track of the map instance
   const navigate = useNavigate();
   const mapRef = useRef<L.Map | null>(null); 
-  const busMarkerRef = useRef<L.Marker | null>(null); 
-  const locationQueue = useRef<{ lat: number; lon: number }[]>([]); 
+
+  // references for markers and polylines
+  const originMarkerRef = useRef<L.Marker | null>(null);
+  const destinationMarkerRef = useRef<L.Marker | null>(null);
+  const busMarkerRef = useRef<L.Marker | null>(null);
+  const routePolylineRefs = useRef<{ routeIndex: number; polyline: L.Polyline }[]>([]);
+
+  // queue and animation refs for the bus
+  const locationQueue = useRef<{ lat: number; lon: number }[]>([]);
   const isMoving = useRef(false);
 
+  // State to hold origin/destination (as lat,lng strings)
+  const [origin, setOrigin] = useState<string | null>(null);
+  const [destination, setDestination] = useState<string | null>(null);
+
+  // state toggle for setting origin or destination(buttons)
+  const [settingMode, setSettingMode] = useState<'origin' | 'destination' | null>(null);
+  const settingModeRef = useRef<'origin' | 'destination' | null>(null);
+
+  // State for fetched routes and active route index
+  const [routes, setRoutes] = useState<any[]>([]);
+  const [activeRouteIndex, setActiveRouteIndex] = useState<number | null>(null);
+  const [isRoutesVisible, setIsRoutesVisible] = useState<boolean>(true);
+
+  // There was a singular useEffect before and it was causing bugs, so I split it into multiple useEffects to asynchronously handle different parts of the map logic.
+  // Syncs the ref whenever settingMode changes so the map's click handler always sees the latest
+  useEffect(() => {
+    settingModeRef.current = settingMode;
+  }, [settingMode]);
+
+  //initialize the map and set up event listeners
   useEffect(() => {
     // Initial view set to Stavanger, i'm not imaginative :(
     const map = L.map('map').setView([58.969975, 5.733107], 13); 
@@ -29,7 +60,6 @@ const MapPage: React.FC = () => {
     // home button below the zoom controls
     const HomeButton = L.Control.extend({
       options: { position: 'topleft' },
-
       onAdd: () => {
         const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
         div.style.display = 'flex';
@@ -46,99 +76,22 @@ const MapPage: React.FC = () => {
         return div;
       },
     });
+    map.addControl(new HomeButton());
 
-    const homeButton = new HomeButton();
-    map.addControl(homeButton);
-
+    // Bus Icon
     const busIcon = L.divIcon({
       className: 'custom-marker-icon',
       html: ReactDOMServer.renderToString(<FaBus size={30} color="blue" />),
       iconSize: [30, 30],
       iconAnchor: [15, 30],
     });
+    busMarkerRef.current = L.marker([58.969975, 5.733107], { icon: busIcon }).addTo(map);
 
-    const busMarker = L.marker([58.969975, 5.733107], { icon: busIcon }).addTo(map);
-    busMarkerRef.current = busMarker;
-
-     const fetchBusLocation = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/positions`);
-        const data = await response.json();
-        const { shape_pt_lat, shape_pt_lon } = data.location;
-
-        // used queue to smooth the bus movement
-        locationQueue.current.push({ lat: shape_pt_lat, lon: shape_pt_lon });
-
-        if (!isMoving.current) {
-          processQueue();
-        }
-      } catch (error) {
-        console.error('Error fetching bus location:', error);
-      }
-    };
-    const processQueue = () => {
-      if (locationQueue.current.length === 0) {
-        isMoving.current = false;
-        return;
-      }
-
-      isMoving.current = true;
-      const nextLocation = locationQueue.current.shift();
-
-      if (nextLocation && busMarkerRef.current) {
-        smoothMoveMarker(
-          busMarkerRef.current.getLatLng().lat,
-          busMarkerRef.current.getLatLng().lng,
-          nextLocation.lat,
-          nextLocation.lon,
-          () => {
-            // encountered a bug where the bus marker wouldn't move, here hoping this ductape holds the logic together
-            setTimeout(() => {
-              processQueue();
-            }, 50);
-          }
-        );
-      }
-    };
-    // smoothly moves the bus marker from its current position to the new position
-    const smoothMoveMarker = (
-      startLat: number,
-      startLon: number,
-      endLat: number,
-      endLon: number,
-      onComplete: () => void
-    ) => {
-      const duration = 5000; // 5 seconds for the animation to make it look "in realtime"
-      const steps = 50;
-      const interval = duration / steps;
-      let step = 0;
-
-      const latStep = (endLat - startLat) / steps;
-      const lonStep = (endLon - startLon) / steps;
-
-      const animate = () => {
-        if (step < steps) {
-          const newLat = startLat + latStep * step;
-          const newLon = startLon + lonStep * step;
-
-          if (busMarkerRef.current) {
-            busMarkerRef.current.setLatLng([newLat, newLon]);
-          }
-
-          step++;
-          setTimeout(animate, interval);
-        } else {
-          onComplete();
-        }
-      };
-
-      animate();
-    };
-    const intervalId = setInterval(fetchBusLocation, 5000);
-
+    
     // tracks if the map component is still mounted. stops memory leaks and runtime errors
     let isMounted = true; 
 
+    // you are here marker
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -171,17 +124,331 @@ const MapPage: React.FC = () => {
       alert('Geolocation is not supported by your browser.');
     }
 
+    //  settingModeRef to decide if setting origin or destination
+    map.on('click', (e: L.LeafletMouseEvent) => {
+      const mode = settingModeRef.current;
+      const { lat, lng } = e.latlng;
+
+      if (mode === 'origin') {
+        setOrigin(`${lat},${lng}`);
+        setSettingMode(null);
+      } else if (mode === 'destination') {
+        setDestination(`${lat},${lng}`);
+        setSettingMode(null);
+      }
+    });
+    
+    // Fetch bus location every 5 seconds
+    const fetchBusLocation = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/positions`);
+        const data = await response.json();
+        const { shape_pt_lat, shape_pt_lon } = data.location;
+        locationQueue.current.push({ lat: shape_pt_lat, lon: shape_pt_lon });
+        if (!isMoving.current) processQueue();
+      } catch (error) {
+        console.error('Error fetching bus location:', error);
+      }
+    };
+    const processQueue = () => {
+      if (locationQueue.current.length === 0) {
+        isMoving.current = false;
+        return;
+      }
+      isMoving.current = true;
+      const next = locationQueue.current.shift();
+      if (next && busMarkerRef.current) {
+        smoothMoveMarker(
+          busMarkerRef.current.getLatLng().lat,
+          busMarkerRef.current.getLatLng().lng,
+          next.lat,
+          next.lon,
+          () => {
+            setTimeout(processQueue, 50);
+          }
+        );
+      }
+    };
+    const smoothMoveMarker = (
+      startLat: number,
+      startLon: number,
+      endLat: number,
+      endLon: number,
+      onComplete: () => void
+    ) => {
+      const duration = 5000;
+      const steps = 50;
+      const interval = duration / steps;
+      let step = 0;
+      const latStep = (endLat - startLat) / steps;
+      const lonStep = (endLon - startLon) / steps;
+      const animate = () => {
+        if (step < steps) {
+          const newLat = startLat + latStep * step;
+          const newLon = startLon + lonStep * step;
+          busMarkerRef.current!.setLatLng([newLat, newLon]);
+          step++;
+          setTimeout(animate, interval);
+        } else {
+          onComplete();
+        }
+      };
+      animate();
+    };
+    const intervalId = setInterval(fetchBusLocation, 5000);
+
     return () => {
+      isMounted = false;
       clearInterval(intervalId);
-      isMounted = false; 
       if (mapRef.current) {
-        mapRef.current.remove(); 
-        mapRef.current = null; 
+        mapRef.current.remove();
+        mapRef.current = null;
       }
     };
   }, [navigate]);
+  
 
-  return <div id="map" style={{ height: '100vh', width: '100%' }}></div>;
+  // changes to origin will trigger this effect
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    if (originMarkerRef.current) {
+      originMarkerRef.current.remove();
+      originMarkerRef.current = null;
+    }
+    if (origin) {
+      const [lat, lng] = origin.split(',').map(Number);
+      const markerIcon = L.divIcon({
+        className: 'custom-marker-icon',
+        html: ReactDOMServer.renderToString(<FaDotCircle size={24} color="black" />),
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+      originMarkerRef.current = L.marker([lat, lng], { icon: markerIcon }).addTo(mapRef.current);
+    }
+  }, [origin]);
+
+  // changes to destination will trigger this effect
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    if (destinationMarkerRef.current) {
+      destinationMarkerRef.current.remove();
+      destinationMarkerRef.current = null;
+    }
+    if (destination) {
+      const [lat, lng] = destination.split(',').map(Number);
+      const markerIcon = L.divIcon({
+        className: 'custom-marker-icon',
+        html: ReactDOMServer.renderToString(<FaDotCircle size={24} color="black" />),
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+      destinationMarkerRef.current = L.marker([lat, lng], { icon: markerIcon }).addTo(mapRef.current);
+    }
+  }, [destination]);
+
+  // drawing routes when both origin and destination are set
+  const fetchAndDisplayRoutes = async () => {
+    if (!origin || !destination || !mapRef.current) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/routes?origin=${origin}&destination=${destination}`
+      );
+      const data = await response.json();
+      setRoutes(data.routes || []);
+
+      // Clear old polylines
+      routePolylineRefs.current.forEach((entry) => entry.polyline.remove());
+      routePolylineRefs.current = [];
+
+      // Drawing each section separately
+      data.routes.forEach((route: any, i: number) => {
+        route.sections.forEach((section: any) => {
+          if (!section.polyline) return;
+
+          // decode per sections
+          const coords: L.LatLngExpression[] = polyline
+            .decode(section.polyline)
+            .map(([lat, lng]) => [lat, lng]);
+
+          // If section is walking, use dashArray (just dashes), else solid line
+          const isWalking = section.type === 'pedestrian';
+          const style: L.PathOptions = {
+            color: i === activeRouteIndex ? 'black' : 'gray',
+            opacity: i === activeRouteIndex ? 1 : 0.2,
+            ...(isWalking ? { dashArray: '6 6' } : {}),
+          };
+
+          const sectionPoly = L.polyline(coords, style).addTo(mapRef.current!);
+
+          // When any part of a route is clicked, select the whole route logic
+          sectionPoly.on('click', () => {
+            setActiveRouteIndex(i);
+            setRoutes([route]);
+          });
+
+          // Add the polyline to the map
+          routePolylineRefs.current.push({
+          routeIndex: i,
+          polyline: sectionPoly,
+        });
+        });
+      });
+    } catch (error) {
+      console.error('Error fetching routes:', error);
+    }
+  };
+
+  // Coloring for the active route
+  useEffect(() => {
+     routePolylineRefs.current.forEach((entry) => {
+    entry.polyline.setStyle({
+      color: entry.routeIndex === activeRouteIndex ? 'black' : 'gray',
+      opacity: entry.routeIndex === activeRouteIndex ? 1 : 0.4,
+     dashArray: entry.polyline.options.dashArray || undefined,
+      });
+    });
+  }, [activeRouteIndex]);
+  
+  return (
+    <div id="map-container">
+      <div id="map" style={{ height: '100vh', width: '100%' }} />
+
+      <div className="controls" style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 1000 }}>
+        <button
+          onClick={() => {
+            setSettingMode('origin');
+          }}
+          style={{
+            marginRight: '8px',
+            backgroundColor: settingMode === 'origin' ? '#808080' : '#ffffff',
+            color: settingMode === 'origin' ? '#ffffff' : '#000000',
+            border: '1px solid #ccc',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          {origin ? `Origin Set` : `Set Origin`}
+        </button>
+
+        <button
+          onClick={() => {
+            setSettingMode('destination');
+          }}
+          style={{
+            marginRight: '8px',
+            backgroundColor: settingMode === 'destination' ? '#808080' : '#ffffff',
+            color: settingMode === 'destination' ? '#ffffff' : '#000000',
+            border: '1px solid #ccc',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          {destination ? `Destination Set` : `Set Destination`}
+        </button>
+
+        <button
+          onClick={fetchAndDisplayRoutes}
+          disabled={!origin || !destination}
+          style={{
+            marginRight: '8px',
+            backgroundColor: !origin || !destination ? '#dddddd' : '#000000',
+            color: !origin || !destination ? '#666666' : '#ffffff',
+            border: '1px solid #ccc',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            cursor: !origin || !destination ? 'not-allowed' : 'pointer',
+          }}
+        >
+          Get Routes
+        </button>
+
+        <button
+          onClick={() => {
+            setOrigin(null);
+            setDestination(null);
+            setRoutes([]);
+            setActiveRouteIndex(null);
+            if (originMarkerRef.current) originMarkerRef.current.remove();
+            if (destinationMarkerRef.current) destinationMarkerRef.current.remove();
+            routePolylineRefs.current.forEach((entry) => {
+              entry.polyline.remove();
+            });
+            routePolylineRefs.current = [];
+          }}
+          style={{
+            backgroundColor: '#000000',
+            color: '#ffffff',
+            border: '1px solid #ccc',
+            padding: '6px 12px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          Reset
+        </button>
+      </div>
+
+      <button
+        className="toggle-button"
+        onClick={() => setIsRoutesVisible(!isRoutesVisible)}
+      >
+        {isRoutesVisible ? 'Hide Routes' : 'Show Routes'}
+      </button>
+
+      <div className={`route-panel ${isRoutesVisible ? 'visible' : 'hidden'}`}>
+        <div style={{ padding: '0.5rem 1rem' }}>
+            <h3>&gt; Routes</h3>
+        </div>
+        {routes.length > 0 ? (
+          <ul>
+            {routes.map((route, routeIndex) => (
+              <li key={routeIndex}>
+                <p>Duration: {Math.round(route.duration / 60)} mins</p>
+                <ul>
+                  {route.sections.map((section: any, index: number) => {
+                    if (section.type === 'pedestrian') {
+                      const destinationName = section.arrival.place?.name || 'your destination';
+                      return (
+                        <li key={index}>
+                          Walk to <strong>{destinationName}</strong>
+                        </li>
+                      );
+                    }
+                    if (section.type === 'transit') {
+                      const mode = section.transport?.mode?.toLowerCase() || '';
+                      const transitName = section.transport?.shortName || section.transport?.name || 'unknown';
+                      const from = section.departure.place?.name || 'unknown stop';
+                      const to = section.arrival.place?.name || 'unknown stop';
+                      // couldn't deferentiate bus and train(for now), so using regex to check if the name starts with 'l' and is followed by digits.
+                      //TODO: add a better way to differentiate bus and train
+                      const isTrain = mode.includes('rail') || mode.includes('train') || /^l\d+$/i.test(transitName);
+                      return (
+                        <li key={index}>
+                          Take <strong>{isTrain ? 'Train' : 'Bus'} {transitName}</strong> from <strong>{from}</strong> to <strong>{to}</strong>
+                        </li>
+                      );
+                    }
+                    return null;
+                  })}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div style={{ padding: '0.5rem 1rem' }}><p>
+              {!origin || !destination
+                ? 'So far only doing clicks to set origin and destination. Click the buttons above to set them.'
+                : 'Now click "Get Routes" to see available routes.'}
+            </p></div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default MapPage;
