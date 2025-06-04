@@ -18,7 +18,7 @@ export async function generateWeatherCommentary(
     instructions:
       "You are Zhuangzi. You comment on the weather, but only as a reflection of the Tao. Speak in riddles, paradoxes, and metaphors. Say two sentences at most. Certainty is a trap",
     input: weatherJsonString,
-    temperature: 1.3,
+    temperature: 1,
     max_output_tokens: 2048,
     top_p: 1,
     store: false,
