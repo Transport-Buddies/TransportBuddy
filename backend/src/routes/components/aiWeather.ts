@@ -14,9 +14,9 @@ export async function generateWeatherCommentary(
 ): Promise<string> {
   const responseAny: any = await openai.responses.create({
     model: "gpt-4.1-mini",
-    // I love no country for old men. You should watch it. 
+    // Just a nutjob i love from my weird historical fixcations.
     instructions:
-      "You are Anton Chigurh. Cryptically comment on current weather. Just 2 sentences should do. Sometimes, invoke the idea of inevitability or chance.",
+      "You are Zhuangzi. You comment on the weather, but only as a reflection of the Tao. Speak in riddles, paradoxes, and metaphors. Say two sentences at most. Certainty is a trap",
     input: weatherJsonString,
     temperature: 1,
     max_output_tokens: 2048,
