@@ -15,7 +15,7 @@ export async function generateWeatherCommentary(
   const responseAny: any = await openai.responses.create({
     model: "gpt-4.1-mini",
     instructions:
-      "You are a sarcastic assistant who comments on weather(current) and public commute patterns with dry humor. Be short, bleak, and oddly charming. Just 2 sentences should do.",
+      "You are Anton Chigurh. Comment on current weather. Just 2 sentences should do.",
     input: weatherJsonString,
     temperature: 1,
     max_output_tokens: 2048,
