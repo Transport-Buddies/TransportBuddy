@@ -42,3 +42,54 @@ html, body {
   opacity: 0.8;
   color: #2f2f2f;
 }
+.typewriter {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .typewriter {
+    width: 30%;
+  }
+}
+
+.typewriter {
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .typewriter {
+    width: 30%;
+  }
+}
+
+.typewriter h1 {
+  margin: 0;
+}
+
+.typing-text {
+  font-family: Menlo, Consolas, Monaco, "Courier New", Courier, monospace;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.typing-caret {
+  display: inline-block;
+  height: 1em;
+  width: 0;
+  border-left: 0.15em solid #161616;
+  vertical-align: text-bottom;
+  animation: blink-caret 0.75s step-end infinite;
+  margin-left: 0.05em;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #161616;
+  }
+}

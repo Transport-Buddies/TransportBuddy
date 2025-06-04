@@ -7,23 +7,22 @@ import './HelloPage.css';
 
 const HelloPage: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
+  const [typedMessage, setTypedMessage] = useState<string>('');
+  const navigate = useNavigate()
+  const [activeButton, setActiveButton] = useState<'home' | 'maps'>('home');
   const isMobile = useMediaQuery({ maxWidth: 767 });
   useEffect(() => {
-    // test fetch to the backend API, to see if they're on the same network
     const fetchMessage = async () => {
       try {
         const apiUrl = process.env.REACT_APP_API_URL;
         if (!apiUrl) {
           throw new Error('REACT_APP_API_URL is not defined in the .env file');
         }
-        const response = await fetch(`${apiUrl}/api/hello`);
-        console.log('Response status:', response.status);
-        const data = await response.json();
-        console.log('API response:', data);
-        setTimeout(() => {
-          setMessage(data.message);
-        }, 1100);
-        
+        // fetch api/api/weather-commentary endpoint
+        const weatherResponse = await fetch(`${apiUrl}/api/weather-commentary`);
+        const weatherData = await weatherResponse.json();
+        console.log('Weather API response:', weatherData);
+        setMessage(weatherData.commentary);
       } catch (error) {
         console.error('Error fetching message:', error);
       }
@@ -31,9 +30,25 @@ const HelloPage: React.FC = () => {
 
     fetchMessage();
   }, []);
-  const [activeButton, setActiveButton] = useState<'home' | 'maps'>('home');
-  const navigate = useNavigate();
+  // Typewriter effect for the message
+  useEffect(() => {
+    if (!message) return;
 
+    setTypedMessage('');
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      setTypedMessage((prev) => {
+        const next = message.slice(0, currentIndex + 1);
+        return next;
+      });
+      currentIndex += 1;
+      if (currentIndex === message.length) {
+        clearInterval(intervalId);
+      }
+    }, 20);
+
+    return () => clearInterval(intervalId);
+  }, [message]);
   const handleNavigation = (page: 'home' | 'maps') => {
     setActiveButton(page);
     if (page === 'maps') {
@@ -44,8 +59,16 @@ const HelloPage: React.FC = () => {
   };
   return (
     <div className="hello-page">
-      {message ? <h1 className="message">{message}</h1> : <Loader />}
-
+      {message ? (
+        <div className="typewriter">
+          <h1>
+            <span className="typing-text">{typedMessage}</span>
+            <span className="typing-caret"></span>
+          </h1>
+        </div>
+      ) : (
+        <Loader />
+      )}
       <div
         className="navigation"
         style={{ width: isMobile ? '80%' : '30%' }}
