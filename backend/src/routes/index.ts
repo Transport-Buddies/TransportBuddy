@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
-// console.log(require('dotenv').config().parsed);
+require('dotenv').config().parsed;
 const router = Router();
 
 // initial bus
@@ -60,7 +60,7 @@ export const setRoutes = (app: Express) => {
       'x-rapidapi-host': 'busmaps-gtfs-api.p.rapidapi.com',
     },
   };
-  console.log(options.headers['x-rapidapi-key']);
+  // console.log(options.headers['x-rapidapi-key']);
   try {
     if (!process.env.RAPIDAPI_KEY) {
       throw new Error('RAPIDAPI_KEY is not defined in the .env file');
