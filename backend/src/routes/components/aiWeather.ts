@@ -21,7 +21,7 @@ export async function generateWeatherCommentary(
     temperature: 1,
     max_output_tokens: 2048,
     top_p: 1,
-    store: true,
+    store: false,
   });
   if (responseAny && typeof responseAny.output_text === "string") {
     return responseAny.output_text.trim();
