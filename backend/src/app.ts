@@ -1,12 +1,12 @@
 // This file is responsible for setting up the express server and connecting to mongodb.
 
-import express from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { setRoutes } from './routes/index';
 import mongoose from 'mongoose';
 
-const app = express();
+const app: Express = express();
 const PORT = process.env.PORT || 5000; //todo: use environment variable for port in production
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/transport_buddy'; //todo: no static URI in production, use environment variable
 
