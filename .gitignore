@@ -14,8 +14,6 @@ build/
 # IDE files
 .vscode/
 
-misc/GtfsStopImporter/
-
 # Docker files
 docker-compose.override.yml
 *.env
