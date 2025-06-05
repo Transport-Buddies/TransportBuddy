@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
-import { FaDotCircle, FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCircle, FaMapSigns, FaDotCircle, FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
 import ReactDOMServer from 'react-dom/server';
 import polyline from '@mapbox/polyline';
 import 'leaflet/dist/leaflet.css';
@@ -37,11 +37,89 @@ const MapPage: React.FC = () => {
   const [activeRouteIndex, setActiveRouteIndex] = useState<number | null>(null);
   const [isRoutesVisible, setIsRoutesVisible] = useState<boolean>(true);
 
+  // a ref to hold all stop markers, to clear them when needed
+  const stopMarkersRef = useRef<L.Marker[]>([]);
+  const minZoomfForStops = 13;
+
+  // you are here marker ref for getting closest bus stops
+  const userLocationRef = useRef<L.LatLng | null>(null);
+
   // There was a singular useEffect before and it was causing bugs, so I split it into multiple useEffects to asynchronously handle different parts of the map logic.
   // Syncs the ref whenever settingMode changes so the map's click handler always sees the latest
   useEffect(() => {
     settingModeRef.current = settingMode;
   }, [settingMode]);
+
+  const farStopIcon = L.divIcon({
+    className: 'custom-marker-icon',
+    html: ReactDOMServer.renderToString(<FaMapSigns size={10} color="gray" />),
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+
+  const closeStopIcon = L.divIcon({
+    className: 'custom-marker-icon',
+    html: ReactDOMServer.renderToString(<FaMapSigns size={24} color="black" />),
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+  });
+
+    // fetching and rendering stops on the map
+  const fetchAndRenderStops = async () => {
+    const map = mapRef.current;
+      if (!map) return;
+      // stops don't show when zoomed out too far. crashed my pc without this check
+      if (map.getZoom() < minZoomfForStops) {
+        stopMarkersRef.current.forEach((m) => m.remove());
+        stopMarkersRef.current = [];
+      return;
+    }
+    // stops show when geolocation is set
+    if (!userLocationRef.current) {
+      stopMarkersRef.current.forEach((m) => m.remove());
+      stopMarkersRef.current = [];
+      return;
+    }
+    stopMarkersRef.current.forEach((m) => m.remove());
+    stopMarkersRef.current = [];
+    // rad in degrees for the center of the map
+    const center = map.getCenter();
+    const ne = map.getBounds().getNorthEast();
+    const radiusMeters = L.latLng(center).distanceTo(ne);
+    const radiusDeg = radiusMeters / 111000;
+
+    // clears any existing stop‐markers
+    stopMarkersRef.current.forEach((m) => m.remove());
+    stopMarkersRef.current = [];
+
+    // fetches the stops from backend
+    try {
+      const resp = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/stops?lat=${center.lat}&lon=${center.lng}&radius=${radiusDeg}`
+      );
+      const stops: any[] = await resp.json();
+
+      // when to render bus icons vs circle icons
+      const closeThresholdMeters = 190;
+
+      // for each stop, create a marker and add it to the map
+      stops.forEach((stop) => {
+        const stopLatLng = L.latLng(stop.stop_lat, stop.stop_lon);
+        const userLatLng = userLocationRef.current!;
+        const distanceToUser = stopLatLng.distanceTo(userLatLng);
+
+        // if the stop is closer than threshold, show busIcon; else farStopIcon
+        const chosenIcon = distanceToUser <= closeThresholdMeters ? closeStopIcon : farStopIcon;
+
+        const marker = L.marker([stop.stop_lat, stop.stop_lon], { icon: chosenIcon }).addTo(map);
+        marker.bindPopup(`<strong>${stop.stop_name}</strong><br/>Distance: ${Math.round(distanceToUser)} m`);
+
+        stopMarkersRef.current.push(marker);
+      });
+    } catch (err) {
+      console.error('Error fetching stops:', err);
+    }
+  };
 
   //initialize the map and set up event listeners
   useEffect(() => {
@@ -87,7 +165,6 @@ const MapPage: React.FC = () => {
     });
     busMarkerRef.current = L.marker([58.969975, 5.733107], { icon: busIcon }).addTo(map);
 
-    
     // tracks if the map component is still mounted. stops memory leaks and runtime errors
     let isMounted = true; 
 
@@ -98,6 +175,7 @@ const MapPage: React.FC = () => {
           if (!isMounted) return; 
 
           const { latitude, longitude } = position.coords;
+          userLocationRef.current = L.latLng(latitude, longitude);
 
           if (map && map.setView) {
             map.setView([latitude, longitude], 13);
@@ -137,7 +215,6 @@ const MapPage: React.FC = () => {
         setSettingMode(null);
       }
     });
-    
     // Fetch bus location every 5 seconds
     const fetchBusLocation = async () => {
       try {
@@ -196,10 +273,13 @@ const MapPage: React.FC = () => {
       animate();
     };
     const intervalId = setInterval(fetchBusLocation, 5000);
-
+    map.on('moveend', fetchAndRenderStops);
+    map.on('zoomend', fetchAndRenderStops);
     return () => {
       isMounted = false;
       clearInterval(intervalId);
+      map.off('moveend', fetchAndRenderStops);
+      map.off('zoomend', fetchAndRenderStops);
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
@@ -207,6 +287,9 @@ const MapPage: React.FC = () => {
     };
   }, [navigate]);
   
+  useEffect(() => {
+    fetchAndRenderStops();
+  }, []);
 
   // changes to origin will trigger this effect
   useEffect(() => {

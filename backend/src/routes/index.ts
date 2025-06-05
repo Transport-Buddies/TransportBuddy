@@ -1,5 +1,6 @@
 
 import { generateWeatherCommentary } from "./components/aiWeather";
+import mongoose from 'mongoose';
 import { Router, Express } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
@@ -22,6 +23,17 @@ const staticWeatherJson = JSON.stringify({
 
 // initial bus
 let busLocation = { shape_pt_lat: 58.969975, shape_pt_lon: 5.733107 };
+
+const stopSchema = new mongoose.Schema({
+  stop_id: String,
+  stop_name: String,
+  stop_lat: Number,
+  stop_lon: Number,
+  location_type: String,
+});
+
+// Create the Stop model
+const Stop = mongoose.model('Stop', stopSchema);
 
 // just a test route(/hello), to see if the API is working.
 export const setRoutes = (app: Express) => {
@@ -98,6 +110,35 @@ export const setRoutes = (app: Express) => {
     console.error(error);
     res.status(500).json({ error: 'Failed to fetch routes' });
   }
+  });
+  // Endpoint to get stops within a certain radius of a given latitude and longitude
+  router.get('/stops', async (req, res) => {
+    const lat = req.query.lat as string;
+    const lon = req.query.lon as string;
+    const radius = req.query.radius as string;
+    if (!lat || !lon || !radius) {
+      res.status(400).json({ error: 'long, lat and radius needed' });
+      return;
+    }
+    const r = parseFloat(radius);
+    // To stop crashing the pc with data
+    if (r > 0.5) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(200).json([]);
+      return;
+    }
+    try {
+      const stops = await Stop.find({
+        stop_lat: { $gte: parseFloat(lat) - parseFloat(radius), $lte: parseFloat(lat) + parseFloat(radius) },
+        stop_lon: { $gte: parseFloat(lon) - parseFloat(radius), $lte: parseFloat(lon) + parseFloat(radius) },
+      });
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(200).json(stops);
+    } catch (error) {
+      console.error('Error fetching stops:', error);
+      res.status(500).json({ error: 'Failed to fetch stops' });
+    }
   });
     
     app.use('/api', router);
