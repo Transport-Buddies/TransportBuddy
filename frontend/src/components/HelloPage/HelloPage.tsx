@@ -18,7 +18,7 @@ const HelloPage: React.FC = () => {
         if (!apiUrl) {
           throw new Error('REACT_APP_API_URL is not defined in the .env file');
         }
-        // fetch api/api/weather-commentary endpoint
+        // fetch /api/weather-commentary endpoint
         const weatherResponse = await fetch(`${apiUrl}/api/weather-commentary`);
         const weatherData = await weatherResponse.json();
         console.log('Weather API response:', weatherData);
