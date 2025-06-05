@@ -24,7 +24,7 @@ export async function generateWeatherCommentary(
     store: false,
   });
   if (responseAny && typeof responseAny.output_text === "string") {
-    return responseAny.output_text.trim();
+    return responseAny.output_text;
   }
   throw new Error("Unexpected response format from OpenAI API");
 }

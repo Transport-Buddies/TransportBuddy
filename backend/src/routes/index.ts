@@ -51,7 +51,7 @@ export const setRoutes = (app: Express) => {
     // will be used by c# to post the bus locations
     router.post('/positions', (req, res) => {
         const { shape_pt_lat, shape_pt_lon } = req.body;
-
+        // TODO: Make this lowercamelCase when c# endpoint is ready
         if (typeof shape_pt_lat === 'number' && typeof shape_pt_lon === 'number') {
         busLocation = { shape_pt_lat, shape_pt_lon };
         res.setHeader('Access-Control-Allow-Origin', '*');
