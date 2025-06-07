@@ -68,6 +68,7 @@ export const setRoutes = (app: Express) => {
         busLocation = { shape_pt_lat, shape_pt_lon };
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).json({ message: 'bus location updated' });
+        console.log(`Bus location updated to: ${JSON.stringify(busLocation)}`);
         } else {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(400).json({ error: 'Wrong format, pls make sure its { shape_pt_lat: latitude number, shape_pt_lon: longitude number }' });
