@@ -21,6 +21,7 @@ const MapPage: React.FC = () => {
   const routePolylineRefs = useRef<{ routeIndex: number; polyline: L.Polyline }[]>([]);
 
   // queue and animation refs for the bus
+  //TODO: make a better algorithm for the bus marker movement
   const locationQueue = useRef<{ lat: number; lon: number }[]>([]);
   const isMoving = useRef(false);
 
@@ -39,7 +40,8 @@ const MapPage: React.FC = () => {
 
   // a ref to hold all stop markers, to clear them when needed
   const stopMarkersRef = useRef<L.Marker[]>([]);
-  const minZoomfForStops = 13;
+  // to keep track of when stops show up on the map. The higher, the more zoomed in you need to be to see it.
+  const minZoomfForStops = 15;
 
   // you are here marker ref for getting closest bus stops
   const userLocationRef = useRef<L.LatLng | null>(null);
@@ -52,7 +54,7 @@ const MapPage: React.FC = () => {
 
   const farStopIcon = L.divIcon({
     className: 'custom-marker-icon',
-    html: ReactDOMServer.renderToString(<FaMapSigns size={10} color="gray" />),
+    html: ReactDOMServer.renderToString(<FaCircle size={15} color="gray" />),
     iconSize: [24, 24],
     iconAnchor: [12, 12],
   });
@@ -246,6 +248,7 @@ const MapPage: React.FC = () => {
         );
       }
     };
+    // TODO: gotta make a better algorithm for smoothing the bus marker movement
     const smoothMoveMarker = (
       startLat: number,
       startLon: number,
@@ -253,8 +256,8 @@ const MapPage: React.FC = () => {
       endLon: number,
       onComplete: () => void
     ) => {
-      const duration = 5000;
-      const steps = 50;
+      const duration = 4000;
+      const steps = 80;
       const interval = duration / steps;
       let step = 0;
       const latStep = (endLat - startLat) / steps;
@@ -272,7 +275,7 @@ const MapPage: React.FC = () => {
       };
       animate();
     };
-    const intervalId = setInterval(fetchBusLocation, 5000);
+    const intervalId = setInterval(fetchBusLocation, 4000);
     map.on('moveend', fetchAndRenderStops);
     map.on('zoomend', fetchAndRenderStops);
     return () => {
