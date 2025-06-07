@@ -12,6 +12,9 @@ jobs:
     env:
       MONGO_URI: mongodb://localhost:27017
       OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+      GOOGLE_ROUTES: ${{ secrets.GOOGLE_ROUTES }}
 
     steps:
       - name: Checkout repo
