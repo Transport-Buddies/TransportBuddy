@@ -18,11 +18,19 @@ const HelloPage: React.FC = () => {
         if (!apiUrl) {
           throw new Error('REACT_APP_API_URL is not defined in the .env file');
         }
-        // fetch /api/weather-commentary endpoint
-        const weatherResponse = await fetch(`${apiUrl}/api/weather-commentary`);
-        const weatherData = await weatherResponse.json();
-        console.log('Weather API response:', weatherData);
-        setMessage(weatherData.commentary);
+        // fetch /api/weather-commentary endpoint using city as geolocation api query
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            const weatherResponse = await fetch(`${apiUrl}/api/weather-commentary?lat=${latitude}&lon=${longitude}`);
+            const weatherData = await weatherResponse.json();
+            console.log('Weather API response:', weatherData);
+            setMessage(weatherData.commentary);
+          },
+          (error) => {
+            console.error('Error getting geolocation:', error);
+          }
+        );
       } catch (error) {
         console.error('Error fetching message:', error);
       }

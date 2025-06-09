@@ -10,18 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 require('dotenv').config().parsed;
 const router = Router();
 
-//just a place holder weather json for open ai to comment on
-const staticWeatherJson = JSON.stringify({
-  current: {
-    temp: 295.15,
-    weather: [{ description: "clear sky" }],
-  },
-  daily: [
-    { temp: { min: 288.7, max: 298.4 }, weather: [{ description: "few clouds" }] },
-  ],
-});
-
-// initial bus
+// initial test bus
 let busLocation = { shape_pt_lat: 58.969975, shape_pt_lon: 5.733107 };
 
 const stopSchema = new mongoose.Schema({
@@ -37,21 +26,29 @@ const Stop = mongoose.model('Stop', stopSchema);
 
 // just a test route(/hello), to see if the API is working.
 export const setRoutes = (app: Express) => {
-    router.get('/hello', (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.json({ message: 'Hello, World!' });
-    });
-
-    // route to get the weather commentary
+    // Endpoint to get a static weather commentary
     router.get('/weather-commentary', async (req, res) => {
         res.setHeader('Access-Control-Allow-Origin', '*');
+        const latitude = req.query.lat as string;
+        const longitude = req.query.lon as string;
+        const apiKey = process.env.OPENWEATHER_API_KEY;
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
         try {
-            const commentary = await generateWeatherCommentary(staticWeatherJson);
+            const response = await axios.get(url);
+            // parse the openweather response for the current weather
+            const weatherData = response.data;
+            const currentWeather = {
+                temp: weatherData.main.temp,
+                description: weatherData.weather[0].description,
+                humidity: weatherData.main.humidity,
+                windSpeed: weatherData.wind.speed,
+                city: weatherData.name,
+            };
+            console.log('Current weather data:', currentWeather);
+            const commentary = await generateWeatherCommentary(JSON.stringify(currentWeather));
             res.status(200).json({ commentary });
-            console.log('Weather commentary generated successfully:', commentary);
         } catch (error) {
-            console.error('Error generating weather commentary:', error);
-            res.status(500).json({ error: 'Failed to generate weather commentary' });
+            res.status(500).json({ error: 'Failed to fetch weather data' });
         }
     });
 
