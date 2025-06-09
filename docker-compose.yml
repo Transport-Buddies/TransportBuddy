@@ -11,7 +11,6 @@ services:
       - app-network
     environment:
       - REACT_APP_API_URL=http://localhost:5000
-
   backend:
     build:
       context: .
@@ -21,6 +20,7 @@ services:
     environment:
       - MONGO_URI=${MONGO_URI}
       - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
+      - RAPIDAPI_KEY=${RAPIDAPI_KEY}
     networks:
       - app-network
 
