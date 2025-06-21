@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Siri xmlns="http://www.siri.org.uk/siri" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns3="http://www.ifopt.org.uk/ifopt" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0" version="2.0">
+  <ServiceDelivery>
+    <ResponseTimestamp>2025-06-09T04:09:03.712225702+02:00</ResponseTimestamp>
+    <ProducerRef>ENT</ProducerRef>
+    <VehicleMonitoringDelivery version="2.0">
+      <ResponseTimestamp>2025-06-09T04:09:03.712226687+02:00</ResponseTimestamp>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1033</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1033_250221104746696_6023</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:46963</OriginRef>
+          <OriginName xml:lang="EN">Jernbaneveien</OriginName>
+          <DestinationRef>NSR:Quay:103390</DestinationRef>
+          <DestinationName xml:lang="EN">Sandnes bussterminal Ruten</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T04:00:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T04:42:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.7108157</Longitude>
+            <Latitude>58.9489613</Latitude>
+          </VehicleLocation>
+          <Bearing>-147.3626</Bearing>
+          <Velocity>37</Velocity>
+          <Delay>PT50S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2347</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:47843</StopPointRef>
+            <StopPointName>Tellusveien (hpl. A)</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.7108157</Longitude>
+              <Latitude>58.9489613</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Sandnes via UiS</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1006</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1006_250221104735243_5063</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:46960</OriginRef>
+          <OriginName xml:lang="EN">Olav Vs gate</OriginName>
+          <DestinationRef>NSR:Quay:48620</DestinationRef>
+          <DestinationName xml:lang="EN">Randaberg sentrum</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T03:44:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T04:17:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.643972</Longitude>
+            <Latitude>59.010512</Latitude>
+          </VehicleLocation>
+          <Bearing>-28.648186</Bearing>
+          <Velocity>18</Velocity>
+          <Delay>-PT34S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2261</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:49180</StopPointRef>
+            <StopPointName>Bronseveien (hpl. A)</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.643972</Longitude>
+              <Latitude>59.010512</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Randaberg</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1002</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1002_250221104747393_6033</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:103376</OriginRef>
+          <OriginName xml:lang="EN">Sandnes bussterminal Ruten</OriginName>
+          <DestinationRef>NSR:Quay:44786</DestinationRef>
+          <DestinationName xml:lang="EN">Risavika utenriksterminal</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T03:18:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T04:43:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.685822</Longitude>
+            <Latitude>58.9541352</Latitude>
+          </VehicleLocation>
+          <Bearing>-101.87273</Bearing>
+          <Velocity>0</Velocity>
+          <Delay>-PT3S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2335</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:46609</StopPointRef>
+            <StopPointName>Morgedalsveien</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.685822</Longitude>
+              <Latitude>58.9541352</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Risavika</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1002</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1002_250221104747115_5037</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:44786</OriginRef>
+          <OriginName xml:lang="EN">Risavika utenriksterminal</OriginName>
+          <DestinationRef>NSR:Quay:103390</DestinationRef>
+          <DestinationName xml:lang="EN">Sandnes bussterminal Ruten</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T03:49:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T05:12:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.5871197</Longitude>
+            <Latitude>58.9572148</Latitude>
+          </VehicleLocation>
+          <Bearing>45.124863</Bearing>
+          <Velocity>30</Velocity>
+          <Delay>PT5M51S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2348</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:46449</StopPointRef>
+            <StopPointName>Jåsund (hpl. B)</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.5871197</Longitude>
+              <Latitude>58.9572148</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Sandnes via Stavanger-Varatun</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1000</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1000_250221104734724_6065</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:46967</OriginRef>
+          <OriginName xml:lang="EN">Stavanger bussterminal</OriginName>
+          <DestinationRef>NSR:Quay:49175</DestinationRef>
+          <DestinationName xml:lang="EN">Brislingveien</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T04:00:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T04:20:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.7389363</Longitude>
+            <Latitude>58.9836092</Latitude>
+          </VehicleLocation>
+          <Bearing>-64.2762</Bearing>
+          <Velocity>30</Velocity>
+          <Delay>PT25S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2316</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:48460</StopPointRef>
+            <StopPointName>Pyntesundet (hpl. A)</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.7389363</Longitude>
+              <Latitude>58.9836092</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Hundvåg øst/vest</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+      <VehicleActivity>
+        <RecordedAtTime>2025-06-09T04:09:00+02:00</RecordedAtTime>
+        <ValidUntilTime>2025-06-09T04:09:15+02:00</ValidUntilTime>
+        <MonitoredVehicleJourney>
+          <LineRef>1033</LineRef>
+          <FramedVehicleJourneyRef>
+            <DataFrameRef>2025-06-09</DataFrameRef>
+            <DatedVehicleJourneyRef>KOL:ServiceJourney:1033_250221104746590_5021</DatedVehicleJourneyRef>
+          </FramedVehicleJourneyRef>
+          <VehicleMode>bus</VehicleMode>
+          <OperatorRef>309</OperatorRef>
+          <OriginRef>NSR:Quay:103384</OriginRef>
+          <OriginName xml:lang="EN">Sandnes bussterminal Ruten</OriginName>
+          <DestinationRef>NSR:Quay:46974</DestinationRef>
+          <DestinationName xml:lang="EN">Jernbaneveien</DestinationName>
+          <OriginAimedDepartureTime>2025-06-09T03:43:00+02:00</OriginAimedDepartureTime>
+          <DestinationAimedArrivalTime>2025-06-09T04:26:00+02:00</DestinationAimedArrivalTime>
+          <Monitored>true</Monitored>
+          <DataSource>KOL</DataSource>
+          <VehicleLocation>
+            <Longitude>5.6991177</Longitude>
+            <Latitude>58.9260882</Latitude>
+          </VehicleLocation>
+          <Bearing>-1.0436333</Bearing>
+          <Velocity>41</Velocity>
+          <Delay>PT25S</Delay>
+          <VehicleStatus>inProgress</VehicleStatus>
+          <VehicleRef>2330</VehicleRef>
+          <MonitoredCall>
+            <StopPointRef>NSR:Quay:108874</StopPointRef>
+            <StopPointName>SUS Ullandhaug (hpl. B)</StopPointName>
+            <VehicleLocationAtStop>
+              <Longitude>5.6991177</Longitude>
+              <Latitude>58.9260882</Latitude>
+            </VehicleLocationAtStop>
+            <DestinationDisplay>Stavanger via UiS-SUS</DestinationDisplay>
+          </MonitoredCall>
+          <IsCompleteStopSequence>false</IsCompleteStopSequence>
+        </MonitoredVehicleJourney>
+      </VehicleActivity>
+    </VehicleMonitoringDelivery>
+  </ServiceDelivery>
+</Siri>

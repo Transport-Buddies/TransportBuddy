@@ -1,0 +1,2235 @@
+{
+  "3350453505": {
+    "latitude": 60.3541061840951,
+    "longitude": 5.36753215827048,
+    "bearing": 0,
+    "publishedLineName": "42",
+    "vehicleMode": "bus"
+  },
+  "3510509120": {
+    "latitude": 69.6634785085917,
+    "longitude": 18.9229083247483,
+    "bearing": 327.3,
+    "publishedLineName": "40",
+    "vehicleMode": "bus"
+  },
+  "3390123042": {
+    "latitude": 58.1329653784633,
+    "longitude": 8.07911429554224,
+    "bearing": 125,
+    "publishedLineName": "N4",
+    "vehicleMode": "bus"
+  },
+  "2206": {
+    "latitude": 58.9520766,
+    "longitude": 5.7424168,
+    "bearing": 0.5867252,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "258000810": {
+    "latitude": 59.228735,
+    "longitude": 5.85501333333333,
+    "bearing": 255,
+    "publishedLineName": "1025",
+    "vehicleMode": "ferry"
+  },
+  "139-2025-06-21": {
+    "latitude": 59.265562,
+    "longitude": 11.01904,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "8827": {
+    "latitude": 63.4385337,
+    "longitude": 10.4206073,
+    "bearing": 84,
+    "publishedLineName": "106",
+    "vehicleMode": "bus"
+  },
+  "1179-2025-06-21": {
+    "latitude": 59.431475,
+    "longitude": 10.65772,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "259987000": {
+    "latitude": 67.5102966666667,
+    "longitude": 13.8484633333333,
+    "bearing": 136,
+    "publishedLineName": "18-782",
+    "vehicleMode": "ferry"
+  },
+  "3350453147": {
+    "latitude": 60.3560653701425,
+    "longitude": 5.36814135499299,
+    "bearing": 191.5,
+    "publishedLineName": "10",
+    "vehicleMode": "bus"
+  },
+  "8871": {
+    "latitude": 63.4218957,
+    "longitude": 10.3946772,
+    "bearing": 166,
+    "publishedLineName": "101",
+    "vehicleMode": "bus"
+  },
+  "3390123623": {
+    "latitude": 58.4839881677181,
+    "longitude": 8.76431266777217,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:251_9055": {
+    "latitude": 62.4130249023438,
+    "longitude": 6.32797479629517,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "3350447627": {
+    "latitude": 60.4625452123582,
+    "longitude": 5.37052768282592,
+    "bearing": 0,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "4102570": {
+    "latitude": 60.8269133,
+    "longitude": 11.2418827,
+    "bearing": 262,
+    "publishedLineName": "100",
+    "vehicleMode": "bus"
+  },
+  "3690103206": {
+    "latitude": 67.277617463842,
+    "longitude": 14.4427405949682,
+    "bearing": 0,
+    "publishedLineName": "1",
+    "vehicleMode": "bus"
+  },
+  "3350453156": {
+    "latitude": 60.3279188554734,
+    "longitude": 5.37433901801705,
+    "bearing": 38,
+    "publishedLineName": "16E",
+    "vehicleMode": "bus"
+  },
+  "3350453174": {
+    "latitude": 60.3671469166875,
+    "longitude": 5.26475007645786,
+    "bearing": 0,
+    "publishedLineName": "44",
+    "vehicleMode": "bus"
+  },
+  "2015": {
+    "latitude": 58.95674,
+    "longitude": 5.7002592,
+    "bearing": -107.50899,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "259386000": {
+    "latitude": 59.1642716666667,
+    "longitude": 5.488295,
+    "bearing": 115,
+    "publishedLineName": "1130",
+    "vehicleMode": "ferry"
+  },
+  "3390123110": {
+    "latitude": 58.0797515250742,
+    "longitude": 7.83411503769457,
+    "bearing": 0,
+    "publishedLineName": "40",
+    "vehicleMode": "bus"
+  },
+  "21718": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3390123637": {
+    "latitude": 58.4841215237975,
+    "longitude": 8.76354136504233,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123026": {
+    "latitude": 58.1669503916055,
+    "longitude": 8.08951447717845,
+    "bearing": 340.5,
+    "publishedLineName": "N2",
+    "vehicleMode": "bus"
+  },
+  "3350447519": {
+    "latitude": 60.3889114502817,
+    "longitude": 5.32971745356917,
+    "bearing": 255.5,
+    "publishedLineName": "30",
+    "vehicleMode": "bus"
+  },
+  "3350387039": {
+    "latitude": 60.2233999595046,
+    "longitude": 5.28860002756119,
+    "bearing": 0,
+    "publishedLineName": "61",
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4120239": {
+    "latitude": 59.60847,
+    "longitude": 16.553762,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453162": {
+    "latitude": 60.3198405448347,
+    "longitude": 5.35236032679677,
+    "bearing": 0,
+    "publishedLineName": "16E",
+    "vehicleMode": "bus"
+  },
+  "8870": {
+    "latitude": 63.3853637,
+    "longitude": 10.3414993,
+    "bearing": 282,
+    "publishedLineName": "108",
+    "vehicleMode": "bus"
+  },
+  "3510509136": {
+    "latitude": 69.6347657963634,
+    "longitude": 18.9281213656068,
+    "bearing": 207.7,
+    "publishedLineName": "33",
+    "vehicleMode": "bus"
+  },
+  "2258": {
+    "latitude": 58.960673,
+    "longitude": 5.7356805,
+    "bearing": -24.971579,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123038": {
+    "latitude": 58.1698227021843,
+    "longitude": 7.94511934742332,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "5501": {
+    "latitude": 59.3549935,
+    "longitude": 5.3235551,
+    "bearing": 45.134445,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350377409": {
+    "latitude": 60.3794999979436,
+    "longitude": 5.26408002711833,
+    "bearing": 83.53,
+    "publishedLineName": "400",
+    "vehicleMode": "bus"
+  },
+  "21098": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "2224": {
+    "latitude": 58.9433563,
+    "longitude": 5.6867832,
+    "bearing": -119.151276,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4095652": {
+    "latitude": 57.71132,
+    "longitude": 12.867382,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123733": {
+    "latitude": 58.6242506839335,
+    "longitude": 8.91116570681334,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453009": {
+    "latitude": 60.3452497813851,
+    "longitude": 5.36392886191607,
+    "bearing": 0,
+    "publishedLineName": "6",
+    "vehicleMode": "bus"
+  },
+  "2245": {
+    "latitude": 58.9707658,
+    "longitude": 5.7355833,
+    "bearing": -153.6088,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350361498": {
+    "latitude": 60.5658784881234,
+    "longitude": 5.24294405244291,
+    "bearing": 135.5,
+    "publishedLineName": "300",
+    "vehicleMode": "bus"
+  },
+  "26001": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "2216": {
+    "latitude": 58.9729773,
+    "longitude": 5.6075353,
+    "bearing": 55.311234,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8831": {
+    "latitude": 63.4116847,
+    "longitude": 10.3990887,
+    "bearing": 180,
+    "publishedLineName": "104",
+    "vehicleMode": "bus"
+  },
+  "1862": {
+    "latitude": 63.3329085,
+    "longitude": 10.3670015,
+    "bearing": 248,
+    "publishedLineName": "112",
+    "vehicleMode": "bus"
+  },
+  "3690107061": {
+    "latitude": 65.8309348393232,
+    "longitude": 13.2103138323873,
+    "bearing": 0,
+    "publishedLineName": "705",
+    "vehicleMode": "bus"
+  },
+  "3350447617": {
+    "latitude": 60.3653450589627,
+    "longitude": 5.22580674849451,
+    "bearing": 0,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "2019": {
+    "latitude": 58.9700365,
+    "longitude": 5.7485482,
+    "bearing": 16.23807,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453508": {
+    "latitude": 60.3668298292905,
+    "longitude": 5.24972283281386,
+    "bearing": 238.2,
+    "publishedLineName": "15",
+    "vehicleMode": "bus"
+  },
+  "258027900": {
+    "latitude": 61.20742,
+    "longitude": 6.59650666666667,
+    "bearing": 95,
+    "publishedLineName": "1046",
+    "vehicleMode": "ferry"
+  },
+  "3350453176": {
+    "latitude": 60.3559325169772,
+    "longitude": 5.36829918622971,
+    "bearing": 356.4,
+    "publishedLineName": "16E",
+    "vehicleMode": "bus"
+  },
+  "3390123160": {
+    "latitude": 58.1450347322971,
+    "longitude": 7.99530859105289,
+    "bearing": 216.3,
+    "publishedLineName": "M3",
+    "vehicleMode": "bus"
+  },
+  "3350377437": {
+    "latitude": 60.3617000207305,
+    "longitude": 5.12661002576351,
+    "bearing": 108.86,
+    "publishedLineName": "460",
+    "vehicleMode": "bus"
+  },
+  "3350387048": {
+    "latitude": 60.2699999883771,
+    "longitude": 5.25263998657465,
+    "bearing": 11.12,
+    "publishedLineName": "53",
+    "vehicleMode": "bus"
+  },
+  "3510509044": {
+    "latitude": 69.6853104326874,
+    "longitude": 18.9872939977795,
+    "bearing": 0,
+    "publishedLineName": "28",
+    "vehicleMode": "bus"
+  },
+  "3510509096": {
+    "latitude": 69.66806223616,
+    "longitude": 18.9701204840094,
+    "bearing": 19.4,
+    "publishedLineName": "42",
+    "vehicleMode": "bus"
+  },
+  "3350387056": {
+    "latitude": 60.3214999940246,
+    "longitude": 5.35455998964608,
+    "bearing": 0,
+    "publishedLineName": "70",
+    "vehicleMode": "bus"
+  },
+  "3350377450": {
+    "latitude": 60.3796999901533,
+    "longitude": 5.26388003490865,
+    "bearing": 263.73,
+    "publishedLineName": "400",
+    "vehicleMode": "bus"
+  },
+  "2835": {
+    "latitude": 63.4320478,
+    "longitude": 10.392404,
+    "bearing": 272,
+    "publishedLineName": "4101",
+    "vehicleMode": "bus"
+  },
+  "2242": {
+    "latitude": 58.9671318,
+    "longitude": 5.7322083,
+    "bearing": 132.24109,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123090": {
+    "latitude": 58.2866266183555,
+    "longitude": 7.97954306937754,
+    "bearing": 255.7,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:251_59200": {
+    "latitude": 62.1977729797363,
+    "longitude": 5.42127847671509,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "3350447526": {
+    "latitude": 60.4381478391588,
+    "longitude": 5.32201959751546,
+    "bearing": 13.2,
+    "publishedLineName": "19",
+    "vehicleMode": "bus"
+  },
+  "3350447652": {
+    "latitude": 60.3917203098536,
+    "longitude": 5.32443056814373,
+    "bearing": 0,
+    "publishedLineName": "5",
+    "vehicleMode": "bus"
+  },
+  "3350453509": {
+    "latitude": 60.3493608534336,
+    "longitude": 5.28765337541699,
+    "bearing": 0,
+    "publishedLineName": "24",
+    "vehicleMode": "bus"
+  },
+  "72-04": {
+    "latitude": 58.966785,
+    "longitude": 5.73232,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3800329459": {
+    "latitude": 70.6031917780638,
+    "longitude": 23.6829566862434,
+    "bearing": 293.1,
+    "publishedLineName": "100",
+    "vehicleMode": "bus"
+  },
+  "8825": {
+    "latitude": 63.4147843,
+    "longitude": 10.366488,
+    "bearing": 227,
+    "publishedLineName": "105",
+    "vehicleMode": "bus"
+  },
+  "811214": {
+    "latitude": 59.14756,
+    "longitude": 9.6417652,
+    "bearing": 351,
+    "publishedLineName": "M2N",
+    "vehicleMode": "bus"
+  },
+  "3350387110": {
+    "latitude": 60.1443000230938,
+    "longitude": 5.43831003829837,
+    "bearing": 0,
+    "publishedLineName": "600",
+    "vehicleMode": "bus"
+  },
+  "2001": {
+    "latitude": 58.8793853,
+    "longitude": 5.6693018,
+    "bearing": -161.18352,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390103430": {
+    "latitude": 70.372844254598,
+    "longitude": 31.1017884034663,
+    "bearing": 162.5,
+    "publishedLineName": "150",
+    "vehicleMode": "bus"
+  },
+  "3350447542": {
+    "latitude": 60.4631870985031,
+    "longitude": 5.32155054621398,
+    "bearing": 0,
+    "publishedLineName": "32",
+    "vehicleMode": "bus"
+  },
+  "8847": {
+    "latitude": 63.4230088,
+    "longitude": 10.4911413,
+    "bearing": 76,
+    "publishedLineName": "102",
+    "vehicleMode": "bus"
+  },
+  "26061": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3510509130": {
+    "latitude": 69.6679614856839,
+    "longitude": 18.9626832213253,
+    "bearing": 0,
+    "publishedLineName": "20",
+    "vehicleMode": "bus"
+  },
+  "3390123005": {
+    "latitude": 58.1693393178284,
+    "longitude": 7.94384295120835,
+    "bearing": 330.9,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350135627": {
+    "latitude": 59.987338911742,
+    "longitude": 6.0170525405556,
+    "bearing": 14.8,
+    "publishedLineName": "760",
+    "vehicleMode": "bus"
+  },
+  "3350453418": {
+    "latitude": 60.3775098826736,
+    "longitude": 5.22648216225207,
+    "bearing": 0,
+    "publishedLineName": "40",
+    "vehicleMode": "bus"
+  },
+  "257017920": {
+    "latitude": 61.847345,
+    "longitude": 6.08108833333333,
+    "bearing": 151,
+    "publishedLineName": "1044",
+    "vehicleMode": "ferry"
+  },
+  "3390123633": {
+    "latitude": 58.3148214966059,
+    "longitude": 8.55420576408505,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453180": {
+    "latitude": 60.424987161532,
+    "longitude": 5.30448063276708,
+    "bearing": 359,
+    "publishedLineName": "12",
+    "vehicleMode": "bus"
+  },
+  "1627": {
+    "latitude": 63.3323055,
+    "longitude": 10.3682997,
+    "bearing": 0,
+    "publishedLineName": "114",
+    "vehicleMode": "bus"
+  },
+  "3350453008": {
+    "latitude": 60.3871405217797,
+    "longitude": 5.34830197691917,
+    "bearing": 0,
+    "publishedLineName": "6",
+    "vehicleMode": "bus"
+  },
+  "3350447725": {
+    "latitude": 60.5020803865045,
+    "longitude": 5.47560640610754,
+    "bearing": 359.7,
+    "publishedLineName": "900",
+    "vehicleMode": "bus"
+  },
+  "2024": {
+    "latitude": 58.9937282,
+    "longitude": 5.6692478,
+    "bearing": 155.13103,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350387012": {
+    "latitude": 60.296599958092,
+    "longitude": 5.32695000059903,
+    "bearing": 22.88,
+    "publishedLineName": "53",
+    "vehicleMode": "bus"
+  },
+  "3191": {
+    "latitude": 59.0250208,
+    "longitude": 5.9685265,
+    "bearing": 102.99546,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "2203": {
+    "latitude": 58.8720098,
+    "longitude": 5.738083,
+    "bearing": 126.882095,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447605": {
+    "latitude": 60.3475273959339,
+    "longitude": 5.35891816020012,
+    "bearing": 0,
+    "publishedLineName": "5",
+    "vehicleMode": "bus"
+  },
+  "26002": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3390123037": {
+    "latitude": 58.1323432736099,
+    "longitude": 7.95910036191344,
+    "bearing": 0,
+    "publishedLineName": "N3",
+    "vehicleMode": "bus"
+  },
+  "1696": {
+    "latitude": 63.3594558,
+    "longitude": 10.3681395,
+    "bearing": 43,
+    "publishedLineName": "111",
+    "vehicleMode": "bus"
+  },
+  "257640900": {
+    "latitude": 58.9856466,
+    "longitude": 5.7736394,
+    "bearing": 31,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "26019": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3060": {
+    "latitude": 58.8481443,
+    "longitude": 5.737602,
+    "bearing": -125.325356,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3500101231": {
+    "latitude": 60.1649249531329,
+    "longitude": 10.257733957842,
+    "bearing": 0,
+    "publishedLineName": "200",
+    "vehicleMode": "bus"
+  },
+  "3350447520": {
+    "latitude": 60.4827883467078,
+    "longitude": 5.3843404725194,
+    "bearing": 155.1,
+    "publishedLineName": "19",
+    "vehicleMode": "bus"
+  },
+  "3390123640": {
+    "latitude": 58.3141697198153,
+    "longitude": 8.55443534441292,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123770": {
+    "latitude": 58.1692832428962,
+    "longitude": 7.94342134147882,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350387076": {
+    "latitude": 60.3180999588221,
+    "longitude": 5.35272996872663,
+    "bearing": 167.29,
+    "publishedLineName": "83",
+    "vehicleMode": "bus"
+  },
+  "3510509151": {
+    "latitude": 69.6546594891697,
+    "longitude": 19.0121900103986,
+    "bearing": 0,
+    "publishedLineName": "24",
+    "vehicleMode": "bus"
+  },
+  "259125000": {
+    "latitude": 68.24065,
+    "longitude": 16.210865,
+    "bearing": 85,
+    "publishedLineName": "18-611",
+    "vehicleMode": "ferry"
+  },
+  "3350453158": {
+    "latitude": 60.4021635744721,
+    "longitude": 5.32040440477431,
+    "bearing": 212.3,
+    "publishedLineName": "16E",
+    "vehicleMode": "bus"
+  },
+  "3390123725": {
+    "latitude": 58.3718525525182,
+    "longitude": 8.67017157375813,
+    "bearing": 109.6,
+    "publishedLineName": "100",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:254_32950": {
+    "latitude": 63.0581741333008,
+    "longitude": 8.16059303283691,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "VYX:VehicleRef:4354905": {
+    "latitude": 60.702072,
+    "longitude": 8.942135,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4346278": {
+    "latitude": 62.47187,
+    "longitude": 6.218795,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "2005": {
+    "latitude": 58.9026182,
+    "longitude": 5.7390409,
+    "bearing": -6.716745,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "2009": {
+    "latitude": 58.8521736,
+    "longitude": 5.7265976,
+    "bearing": 111.646065,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "4102521": {
+    "latitude": 60.8559317,
+    "longitude": 11.3987185,
+    "bearing": 55,
+    "publishedLineName": "105",
+    "vehicleMode": "bus"
+  },
+  "1679-2025-06-21": {
+    "latitude": 60.24903,
+    "longitude": 11.20279,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3350387104": {
+    "latitude": 60.1853000186384,
+    "longitude": 5.46898000873625,
+    "bearing": 0,
+    "publishedLineName": "610",
+    "vehicleMode": "bus"
+  },
+  "3610200350": {
+    "latitude": 59.9396681785583,
+    "longitude": 10.6899554282427,
+    "bearing": 57.6,
+    "publishedLineName": "FB3",
+    "vehicleMode": "bus"
+  },
+  "44_x0020_2230": {
+    "latitude": 60.8836302,
+    "longitude": 10.945246,
+    "bearing": 51,
+    "publishedLineName": "B23",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:231_2414": {
+    "latitude": 62.4724082946777,
+    "longitude": 6.22556734085083,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453502": {
+    "latitude": 60.3310153819621,
+    "longitude": 5.29897791333497,
+    "bearing": 62.3,
+    "publishedLineName": "15",
+    "vehicleMode": "bus"
+  },
+  "4102572": {
+    "latitude": 61.0077488,
+    "longitude": 11.7843937,
+    "bearing": 35,
+    "publishedLineName": "150",
+    "vehicleMode": "bus"
+  },
+  "3350361505": {
+    "latitude": 60.4740375559777,
+    "longitude": 5.33400865271688,
+    "bearing": 347.2,
+    "publishedLineName": "300",
+    "vehicleMode": "bus"
+  },
+  "3620803399": {
+    "latitude": 59.7022208478302,
+    "longitude": 10.2740096859634,
+    "bearing": 109.39,
+    "publishedLineName": "4N",
+    "vehicleMode": "bus"
+  },
+  "258694000": {
+    "latitude": 66.36952,
+    "longitude": 12.3716583333333,
+    "bearing": 205,
+    "publishedLineName": "18-344",
+    "vehicleMode": "ferry"
+  },
+  "3350453417": {
+    "latitude": 60.3858815599233,
+    "longitude": 5.3193844947964,
+    "bearing": 0,
+    "publishedLineName": "42",
+    "vehicleMode": "bus"
+  },
+  "3350387118": {
+    "latitude": 60.3923000022769,
+    "longitude": 5.32677004113793,
+    "bearing": 0,
+    "publishedLineName": "610",
+    "vehicleMode": "bus"
+  },
+  "8861": {
+    "latitude": 63.4194713,
+    "longitude": 10.4047703,
+    "bearing": 166,
+    "publishedLineName": "113",
+    "vehicleMode": "bus"
+  },
+  "3028": {
+    "latitude": 58.8488186,
+    "longitude": 5.7402843,
+    "bearing": 59.90107,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123727": {
+    "latitude": 58.4847634937614,
+    "longitude": 8.76465917564929,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123099": {
+    "latitude": 58.13541457057,
+    "longitude": 7.8554613981396,
+    "bearing": 188.4,
+    "publishedLineName": "N40",
+    "vehicleMode": "bus"
+  },
+  "8864": {
+    "latitude": 63.3720543,
+    "longitude": 10.3466543,
+    "bearing": 212,
+    "publishedLineName": "101",
+    "vehicleMode": "bus"
+  },
+  "3350377440": {
+    "latitude": 60.361400032416,
+    "longitude": 5.12769003398716,
+    "bearing": 0,
+    "publishedLineName": "465",
+    "vehicleMode": "bus"
+  },
+  "2279-2025-06-21": {
+    "latitude": 59.745002,
+    "longitude": 10.343625,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "1677-2025-06-20": {
+    "latitude": 60.248992,
+    "longitude": 11.202727,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "4102530": {
+    "latitude": 61.0346902,
+    "longitude": 11.4054667,
+    "bearing": 339,
+    "publishedLineName": "803",
+    "vehicleMode": "bus"
+  },
+  "3690103110": {
+    "latitude": 67.275511091575,
+    "longitude": 14.4763238634914,
+    "bearing": 70.5,
+    "publishedLineName": "2 N",
+    "vehicleMode": "bus"
+  },
+  "3690103205": {
+    "latitude": 67.289959480986,
+    "longitude": 14.6079389378428,
+    "bearing": 254.3,
+    "publishedLineName": "4 N",
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4095911": {
+    "latitude": 58.751408,
+    "longitude": 16.906622,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "26003": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3390123738": {
+    "latitude": 58.4848948381841,
+    "longitude": 8.76308153383434,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3690103207": {
+    "latitude": 67.2836129553616,
+    "longitude": 14.3821162171662,
+    "bearing": 0,
+    "publishedLineName": "4 N",
+    "vehicleMode": "bus"
+  },
+  "3390123166": {
+    "latitude": 58.1404282897711,
+    "longitude": 7.9642588365823,
+    "bearing": 236.5,
+    "publishedLineName": "15",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:254_5495": {
+    "latitude": 62.3706130981445,
+    "longitude": 6.03222513198853,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "5555": {
+    "latitude": 59.4228568,
+    "longitude": 5.3905592,
+    "bearing": -18.991152,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4175902": {
+    "latitude": 59.44258,
+    "longitude": 10.704221,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123647": {
+    "latitude": 58.2725326158106,
+    "longitude": 8.32908309996128,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8846": {
+    "latitude": 63.4360955,
+    "longitude": 10.4206607,
+    "bearing": 83,
+    "publishedLineName": "102",
+    "vehicleMode": "bus"
+  },
+  "811206": {
+    "latitude": 59.2208061,
+    "longitude": 9.5667991,
+    "bearing": 156,
+    "publishedLineName": "M1N",
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4357255": {
+    "latitude": 60.607563,
+    "longitude": 9.960098,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "257310500": {
+    "latitude": 67.8040033333333,
+    "longitude": 13.27803,
+    "bearing": 317,
+    "publishedLineName": "18-782",
+    "vehicleMode": "ferry"
+  },
+  "3390123768": {
+    "latitude": 58.1694430857897,
+    "longitude": 7.94340818189085,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "2200": {
+    "latitude": 58.923361,
+    "longitude": 5.6059716,
+    "bearing": -168.68385,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "339-2025-06-20": {
+    "latitude": 61.095542,
+    "longitude": 10.466157,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3390123631": {
+    "latitude": 58.3148036431521,
+    "longitude": 8.55419428087771,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447653": {
+    "latitude": 60.4246933758259,
+    "longitude": 5.30475405044854,
+    "bearing": 186.3,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "3390123016": {
+    "latitude": 58.147484511137,
+    "longitude": 7.9863818641752,
+    "bearing": 266.3,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123740": {
+    "latitude": 58.4843834582716,
+    "longitude": 8.76213203184307,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4118292": {
+    "latitude": 59.307377,
+    "longitude": 15.387397,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447601": {
+    "latitude": 60.3647392988205,
+    "longitude": 5.22525228559971,
+    "bearing": 9.9,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "811393": {
+    "latitude": 59.0804472,
+    "longitude": 9.6837832,
+    "bearing": 335,
+    "publishedLineName": "M1N",
+    "vehicleMode": "bus"
+  },
+  "3350447637": {
+    "latitude": 60.414510872215,
+    "longitude": 5.32108375802636,
+    "bearing": 150.7,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "3610200360": {
+    "latitude": 59.9217942729592,
+    "longitude": 10.7307065650821,
+    "bearing": 0,
+    "publishedLineName": "FB5A",
+    "vehicleMode": "bus"
+  },
+  "3690103101": {
+    "latitude": 67.2727699577808,
+    "longitude": 14.3668931722641,
+    "bearing": 0,
+    "publishedLineName": "2 N",
+    "vehicleMode": "bus"
+  },
+  "3350447610": {
+    "latitude": 60.421474641189,
+    "longitude": 5.30762334354222,
+    "bearing": 143,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "1616": {
+    "latitude": 63.4040038,
+    "longitude": 10.507335,
+    "bearing": 331,
+    "publishedLineName": "107",
+    "vehicleMode": "bus"
+  },
+  "3350135615": {
+    "latitude": 60.3660342190415,
+    "longitude": 6.14514151588082,
+    "bearing": 325.4,
+    "publishedLineName": "925",
+    "vehicleMode": "bus"
+  },
+  "259439000": {
+    "latitude": 60.0547616666667,
+    "longitude": 6.02023166666667,
+    "bearing": 184,
+    "publishedLineName": "1027",
+    "vehicleMode": "ferry"
+  },
+  "21100": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3350387122": {
+    "latitude": 60.1852000225335,
+    "longitude": 5.46902996487916,
+    "bearing": 0,
+    "publishedLineName": "610",
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4362183": {
+    "latitude": 62.087593,
+    "longitude": 9.104565,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8873": {
+    "latitude": 63.400928,
+    "longitude": 10.445318,
+    "bearing": 44,
+    "publishedLineName": "115",
+    "vehicleMode": "bus"
+  },
+  "2100": {
+    "latitude": 59.0064612,
+    "longitude": 5.6181488,
+    "bearing": -41.465252,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "1695": {
+    "latitude": 63.35445,
+    "longitude": 10.3263717,
+    "bearing": 46,
+    "publishedLineName": "109",
+    "vehicleMode": "bus"
+  },
+  "3350447604": {
+    "latitude": 60.3605240397155,
+    "longitude": 5.23160115815699,
+    "bearing": 334.16,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "3350387115": {
+    "latitude": 60.2055999822915,
+    "longitude": 5.44911003671587,
+    "bearing": 74.92,
+    "publishedLineName": "600",
+    "vehicleMode": "bus"
+  },
+  "1039-2025-06-20": {
+    "latitude": 60.188548,
+    "longitude": 11.997227,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "MOR:Vehicle:231_2447": {
+    "latitude": 62.5069618225098,
+    "longitude": 6.41873550415039,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350387125": {
+    "latitude": 60.2034999802709,
+    "longitude": 5.44657995924354,
+    "bearing": 271.21,
+    "publishedLineName": "600",
+    "vehicleMode": "bus"
+  },
+  "3350387156": {
+    "latitude": 60.2989000361413,
+    "longitude": 5.3281500376761,
+    "bearing": 14.58,
+    "publishedLineName": "22",
+    "vehicleMode": "bus"
+  },
+  "257055930": {
+    "latitude": 59.9690783333333,
+    "longitude": 5.33387,
+    "bearing": 191,
+    "publishedLineName": "1018",
+    "vehicleMode": "ferry"
+  },
+  "3390123622": {
+    "latitude": 58.4843181632459,
+    "longitude": 8.7652660254389,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8832": {
+    "latitude": 63.4293232,
+    "longitude": 10.3596608,
+    "bearing": 298,
+    "publishedLineName": "108",
+    "vehicleMode": "bus"
+  },
+  "18-2258": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3510509163": {
+    "latitude": 69.6721039898694,
+    "longitude": 18.9170804712921,
+    "bearing": 251.8,
+    "publishedLineName": "26",
+    "vehicleMode": "bus"
+  },
+  "3350453507": {
+    "latitude": 60.3894022107124,
+    "longitude": 5.28577633202076,
+    "bearing": 142.2,
+    "publishedLineName": "6",
+    "vehicleMode": "bus"
+  },
+  "2021": {
+    "latitude": 58.893959,
+    "longitude": 5.7386828,
+    "bearing": 161.0203,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4323409": {
+    "latitude": 61.43555,
+    "longitude": 10.20076,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447525": {
+    "latitude": 60.4637438245118,
+    "longitude": 5.32213753089309,
+    "bearing": 99.23,
+    "publishedLineName": "28",
+    "vehicleMode": "bus"
+  },
+  "3350453170": {
+    "latitude": 60.3561049327254,
+    "longitude": 5.36819122731686,
+    "bearing": 193.8,
+    "publishedLineName": "44",
+    "vehicleMode": "bus"
+  },
+  "3350447521": {
+    "latitude": 60.3909183293581,
+    "longitude": 5.32517907209694,
+    "bearing": 0,
+    "publishedLineName": "19",
+    "vehicleMode": "bus"
+  },
+  "1939-2025-06-21": {
+    "latitude": 59.554242,
+    "longitude": 11.323628,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "26035": {
+    "latitude": 58.886558,
+    "longitude": 9.038975,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "VYX:VehicleRef:4357256": {
+    "latitude": 61.06404,
+    "longitude": 7.509305,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4159882": {
+    "latitude": 58.322598,
+    "longitude": 11.850348,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123039": {
+    "latitude": 58.1614630110562,
+    "longitude": 8.01794425584376,
+    "bearing": 242.4,
+    "publishedLineName": "N3",
+    "vehicleMode": "bus"
+  },
+  "3390123082": {
+    "latitude": 58.1678156554699,
+    "longitude": 7.94805200770497,
+    "bearing": 144.3,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123050": {
+    "latitude": 58.1614353507757,
+    "longitude": 8.01810585893691,
+    "bearing": 0,
+    "publishedLineName": "15",
+    "vehicleMode": "bus"
+  },
+  "1694": {
+    "latitude": 63.4062912,
+    "longitude": 10.397089,
+    "bearing": 191,
+    "publishedLineName": "109",
+    "vehicleMode": "bus"
+  },
+  "3510509128": {
+    "latitude": 69.6459539607167,
+    "longitude": 18.9843852259219,
+    "bearing": 204.7,
+    "publishedLineName": "28",
+    "vehicleMode": "bus"
+  },
+  "2002": {
+    "latitude": 58.9485135,
+    "longitude": 5.7428702,
+    "bearing": 171.25629,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3610200361": {
+    "latitude": 59.9374879617244,
+    "longitude": 10.7592363003641,
+    "bearing": 269.4,
+    "publishedLineName": "FB1",
+    "vehicleMode": "bus"
+  },
+  "44_x0020_2193": {
+    "latitude": 60.8008388,
+    "longitude": 11.2375038,
+    "bearing": 73,
+    "publishedLineName": "B26",
+    "vehicleMode": "bus"
+  },
+  "21102": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "44_x0020_2224": {
+    "latitude": 60.7174785,
+    "longitude": 11.1950438,
+    "bearing": 337,
+    "publishedLineName": "B23",
+    "vehicleMode": "bus"
+  },
+  "18-2259": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3390123094": {
+    "latitude": 58.1125709507614,
+    "longitude": 7.95550628565252,
+    "bearing": 142.7,
+    "publishedLineName": "N2",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:251_59100": {
+    "latitude": 62.1206283569336,
+    "longitude": 6.03314352035522,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "1628": {
+    "latitude": 63.2832833,
+    "longitude": 10.2812752,
+    "bearing": 206,
+    "publishedLineName": "110",
+    "vehicleMode": "bus"
+  },
+  "3510509129": {
+    "latitude": 69.6662659104913,
+    "longitude": 18.9626206923276,
+    "bearing": 9.4,
+    "publishedLineName": "24",
+    "vehicleMode": "bus"
+  },
+  "3350377402": {
+    "latitude": 60.4418999981135,
+    "longitude": 5.17250999808311,
+    "bearing": 133.4,
+    "publishedLineName": "400",
+    "vehicleMode": "bus"
+  },
+  "837-2025-06-20": {
+    "latitude": 59.221438,
+    "longitude": 9.600605,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "MOR:Vehicle:254_6226": {
+    "latitude": 62.4104080200195,
+    "longitude": 6.54641342163086,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "3350453005": {
+    "latitude": 60.3787660785019,
+    "longitude": 5.36058163270354,
+    "bearing": 4.2,
+    "publishedLineName": "6",
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4096740": {
+    "latitude": 59.31542,
+    "longitude": 14.106189,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453171": {
+    "latitude": 60.3550109267235,
+    "longitude": 5.36802886985242,
+    "bearing": 0,
+    "publishedLineName": "12",
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4315606": {
+    "latitude": 61.526966,
+    "longitude": 10.148972,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350377411": {
+    "latitude": 60.4076999891549,
+    "longitude": 5.22654997184873,
+    "bearing": 0,
+    "publishedLineName": "407",
+    "vehicleMode": "bus"
+  },
+  "3350453118": {
+    "latitude": 60.3560697287321,
+    "longitude": 5.36818728782237,
+    "bearing": 205,
+    "publishedLineName": "20",
+    "vehicleMode": "bus"
+  },
+  "3390123643": {
+    "latitude": 58.2726907823235,
+    "longitude": 8.32887799479067,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4172206": {
+    "latitude": 59.243145,
+    "longitude": 10.980355,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4061701": {
+    "latitude": 60.185513,
+    "longitude": 11.066118,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3620803457": {
+    "latitude": 59.5430793520063,
+    "longitude": 10.3704480919987,
+    "bearing": 226.04,
+    "publishedLineName": "91",
+    "vehicleMode": "bus"
+  },
+  "258002060": {
+    "latitude": 59.2348,
+    "longitude": 6.16598333333333,
+    "bearing": 179,
+    "publishedLineName": "1054",
+    "vehicleMode": "ferry"
+  },
+  "8872": {
+    "latitude": 63.4339978,
+    "longitude": 10.5869627,
+    "bearing": 35,
+    "publishedLineName": "106",
+    "vehicleMode": "bus"
+  },
+  "3350453140": {
+    "latitude": 60.3890065848827,
+    "longitude": 5.29109213501215,
+    "bearing": 303.3,
+    "publishedLineName": "12",
+    "vehicleMode": "bus"
+  },
+  "257090540": {
+    "latitude": 61.1532266666667,
+    "longitude": 7.36062166666667,
+    "bearing": 298,
+    "publishedLineName": "1047",
+    "vehicleMode": "ferry"
+  },
+  "3350447644": {
+    "latitude": 60.4868619516492,
+    "longitude": 5.27863880619407,
+    "bearing": 0,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "3390123606": {
+    "latitude": 58.4840527083725,
+    "longitude": 8.76383657567203,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8833": {
+    "latitude": 63.4094222,
+    "longitude": 10.4029295,
+    "bearing": 165,
+    "publishedLineName": "103",
+    "vehicleMode": "bus"
+  },
+  "3390123008": {
+    "latitude": 58.1276834383607,
+    "longitude": 8.09929448179901,
+    "bearing": 0,
+    "publishedLineName": "M4",
+    "vehicleMode": "bus"
+  },
+  "3350447516": {
+    "latitude": 60.4626743774861,
+    "longitude": 5.32117579132318,
+    "bearing": 0,
+    "publishedLineName": "35",
+    "vehicleMode": "bus"
+  },
+  "4102541": {
+    "latitude": 60.8186135,
+    "longitude": 11.3410377,
+    "bearing": 227,
+    "publishedLineName": "804",
+    "vehicleMode": "bus"
+  },
+  "VYX:VehicleRef:4357278": {
+    "latitude": 59.09719,
+    "longitude": 9.685345,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3510509155": {
+    "latitude": 69.6582714188844,
+    "longitude": 18.9304005727172,
+    "bearing": 1.5,
+    "publishedLineName": "28",
+    "vehicleMode": "bus"
+  },
+  "3510509055": {
+    "latitude": 69.6912836283445,
+    "longitude": 19.0108427032828,
+    "bearing": 0,
+    "publishedLineName": "33",
+    "vehicleMode": "bus"
+  },
+  "3171": {
+    "latitude": 59.0417491234294,
+    "longitude": 5.83911376216076,
+    "bearing": -118.026955,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "2236": {
+    "latitude": 58.9616565,
+    "longitude": 5.7172793,
+    "bearing": 73.31827,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123635": {
+    "latitude": 58.3147836942226,
+    "longitude": 8.5541461687535,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8829": {
+    "latitude": 63.4125418,
+    "longitude": 10.4003835,
+    "bearing": 76,
+    "publishedLineName": "115",
+    "vehicleMode": "bus"
+  },
+  "3350447658": {
+    "latitude": 60.4637773521245,
+    "longitude": 5.32216946594417,
+    "bearing": 93.92,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "257077580": {
+    "latitude": 59.7496616666667,
+    "longitude": 5.46685666666667,
+    "bearing": 265,
+    "publishedLineName": "1032",
+    "vehicleMode": "ferry"
+  },
+  "VYX:VehicleRef:4320065": {
+    "latitude": 61.846107,
+    "longitude": 8.858388,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "811198": {
+    "latitude": 59.1277458,
+    "longitude": 9.6394661,
+    "bearing": 233,
+    "publishedLineName": "M1N",
+    "vehicleMode": "bus"
+  },
+  "259988000": {
+    "latitude": 67.6933333333333,
+    "longitude": 13.4778333333333,
+    "bearing": 118,
+    "publishedLineName": "18-782",
+    "vehicleMode": "ferry"
+  },
+  "3690103107": {
+    "latitude": 67.277617463842,
+    "longitude": 14.4415045157075,
+    "bearing": 0,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "3390123048": {
+    "latitude": 58.1681995466352,
+    "longitude": 7.94504919089377,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453107": {
+    "latitude": 60.3561101295054,
+    "longitude": 5.36818158812821,
+    "bearing": 186,
+    "publishedLineName": "44",
+    "vehicleMode": "bus"
+  },
+  "3390123045": {
+    "latitude": 58.2059464417398,
+    "longitude": 8.0310283228755,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "8874": {
+    "latitude": 63.3717755,
+    "longitude": 10.3990735,
+    "bearing": 69,
+    "publishedLineName": "103",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:259_776": {
+    "latitude": 62.6523017883301,
+    "longitude": 7.08524656295776,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "3620803466": {
+    "latitude": 59.716182667762,
+    "longitude": 10.2219276409596,
+    "bearing": 345.37,
+    "publishedLineName": "3N",
+    "vehicleMode": "bus"
+  },
+  "811211": {
+    "latitude": 59.1384134,
+    "longitude": 9.6429828,
+    "bearing": 261,
+    "publishedLineName": "M3N",
+    "vehicleMode": "bus"
+  },
+  "3620802391": {
+    "latitude": 59.7172965388745,
+    "longitude": 10.1637382060289,
+    "bearing": 273.47,
+    "publishedLineName": "22N",
+    "vehicleMode": "bus"
+  },
+  "257055990": {
+    "latitude": 60.1401183333333,
+    "longitude": 5.42640833333333,
+    "bearing": 358,
+    "publishedLineName": "1018",
+    "vehicleMode": "ferry"
+  },
+  "3350377432": {
+    "latitude": 60.3617000207305,
+    "longitude": 5.12661002576351,
+    "bearing": 100.45,
+    "publishedLineName": "460",
+    "vehicleMode": "bus"
+  },
+  "3350447632": {
+    "latitude": 60.3823041636497,
+    "longitude": 5.27023234404624,
+    "bearing": 33.44,
+    "publishedLineName": "3",
+    "vehicleMode": "bus"
+  },
+  "72-15": {
+    "latitude": 58.46695,
+    "longitude": 5.98509,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "21714": {
+    "latitude": 58.146635,
+    "longitude": 7.979207,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "8830": {
+    "latitude": 63.351555,
+    "longitude": 10.3569005,
+    "bearing": 195,
+    "publishedLineName": "104",
+    "vehicleMode": "bus"
+  },
+  "3350453123": {
+    "latitude": 60.3619192913175,
+    "longitude": 5.23468066938221,
+    "bearing": 0,
+    "publishedLineName": "41",
+    "vehicleMode": "bus"
+  },
+  "3350453407": {
+    "latitude": 60.3617768827826,
+    "longitude": 5.23490371182561,
+    "bearing": 0,
+    "publishedLineName": "43",
+    "vehicleMode": "bus"
+  },
+  "3610200359": {
+    "latitude": 59.9919446837157,
+    "longitude": 11.0313898231834,
+    "bearing": 206.4,
+    "publishedLineName": "FB5A",
+    "vehicleMode": "bus"
+  },
+  "3350447645": {
+    "latitude": 60.344451405108,
+    "longitude": 5.26100520975888,
+    "bearing": 316,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "8838": {
+    "latitude": 63.4109363,
+    "longitude": 10.4832357,
+    "bearing": 92,
+    "publishedLineName": "113",
+    "vehicleMode": "bus"
+  },
+  "3350387112": {
+    "latitude": 60.1851000264287,
+    "longitude": 5.46908000484109,
+    "bearing": 0,
+    "publishedLineName": "600",
+    "vehicleMode": "bus"
+  },
+  "839-2025-06-20": {
+    "latitude": 59.117538,
+    "longitude": 9.710382,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "8869": {
+    "latitude": 63.3850478,
+    "longitude": 10.3569212,
+    "bearing": 158,
+    "publishedLineName": "105",
+    "vehicleMode": "bus"
+  },
+  "3350387150": {
+    "latitude": 60.2883000299335,
+    "longitude": 5.26232996955514,
+    "bearing": 0,
+    "publishedLineName": "50E",
+    "vehicleMode": "bus"
+  },
+  "1615": {
+    "latitude": 63.4363672,
+    "longitude": 10.4247912,
+    "bearing": 83,
+    "publishedLineName": "107",
+    "vehicleMode": "bus"
+  },
+  "9808": {
+    "latitude": 64.9254674,
+    "longitude": 13.1759488,
+    "bearing": -1,
+    "publishedLineName": "611",
+    "vehicleMode": "bus"
+  },
+  "539-2025-06-20": {
+    "latitude": 59.674675,
+    "longitude": 9.646772,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3350453114": {
+    "latitude": 60.3195525426418,
+    "longitude": 5.35295158624649,
+    "bearing": 162.4,
+    "publishedLineName": "20",
+    "vehicleMode": "bus"
+  },
+  "3390123739": {
+    "latitude": 58.4845988731831,
+    "longitude": 8.76209205016494,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "1766": {
+    "latitude": 63.429791,
+    "longitude": 10.7673753,
+    "bearing": 127,
+    "publishedLineName": "116",
+    "vehicleMode": "bus"
+  },
+  "258221500": {
+    "latitude": 61.1041933333333,
+    "longitude": 5.506515,
+    "bearing": 44,
+    "publishedLineName": "1045",
+    "vehicleMode": "ferry"
+  },
+  "3510509067": {
+    "latitude": 69.6836603712291,
+    "longitude": 18.9809538424015,
+    "bearing": 0,
+    "publishedLineName": "33",
+    "vehicleMode": "bus"
+  },
+  "3350387011": {
+    "latitude": 60.3211000096053,
+    "longitude": 5.35337998531759,
+    "bearing": 0,
+    "publishedLineName": "76",
+    "vehicleMode": "bus"
+  },
+  "3350447615": {
+    "latitude": 60.4623872134835,
+    "longitude": 5.37093688733876,
+    "bearing": 336.6,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "3350453510": {
+    "latitude": 60.3889509290457,
+    "longitude": 5.28993048705161,
+    "bearing": 250.3,
+    "publishedLineName": "6",
+    "vehicleMode": "bus"
+  },
+  "3350447539": {
+    "latitude": 60.4402938578278,
+    "longitude": 5.32317319884896,
+    "bearing": 180.54,
+    "publishedLineName": "19",
+    "vehicleMode": "bus"
+  },
+  "3510509116": {
+    "latitude": 69.6300047915429,
+    "longitude": 18.916300535202,
+    "bearing": 302.6,
+    "publishedLineName": "42",
+    "vehicleMode": "bus"
+  },
+  "5519": {
+    "latitude": 59.2804222,
+    "longitude": 5.2588997,
+    "bearing": 26.093956,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "72-02": {
+    "latitude": 58.627508,
+    "longitude": 5.642788,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "VYX:VehicleRef:4317302": {
+    "latitude": 60.702007,
+    "longitude": 8.941811,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350377430": {
+    "latitude": 60.3613000363111,
+    "longitude": 5.12731997296214,
+    "bearing": 0,
+    "publishedLineName": "454",
+    "vehicleMode": "bus"
+  },
+  "1838-2025-06-21": {
+    "latitude": 60.587817,
+    "longitude": 5.818099,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "4102549": {
+    "latitude": 60.8085957,
+    "longitude": 11.6947817,
+    "bearing": 106,
+    "publishedLineName": "105",
+    "vehicleMode": "bus"
+  },
+  "3350447603": {
+    "latitude": 60.3573334682733,
+    "longitude": 5.35841449163854,
+    "bearing": 0,
+    "publishedLineName": "5",
+    "vehicleMode": "bus"
+  },
+  "257376500": {
+    "latitude": 66.72085,
+    "longitude": 13.4761516666667,
+    "bearing": 178,
+    "publishedLineName": "18-421",
+    "vehicleMode": "ferry"
+  },
+  "3350387155": {
+    "latitude": 60.3027999680489,
+    "longitude": 5.32153001055121,
+    "bearing": 0,
+    "publishedLineName": "67",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:238_3504": {
+    "latitude": 62.7489395141602,
+    "longitude": 7.26208782196045,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447638": {
+    "latitude": 60.349316932261,
+    "longitude": 5.28764834627509,
+    "bearing": 0,
+    "publishedLineName": "5",
+    "vehicleMode": "bus"
+  },
+  "2011": {
+    "latitude": 58.9663133,
+    "longitude": 5.7333447,
+    "bearing": 138.62407,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350447625": {
+    "latitude": 60.3498547989875,
+    "longitude": 5.28793366625905,
+    "bearing": 0,
+    "publishedLineName": "5",
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:238_3507": {
+    "latitude": 62.7488327026367,
+    "longitude": 7.26119995117188,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350453136": {
+    "latitude": 60.3561244625598,
+    "longitude": 5.36822441965342,
+    "bearing": 182.6,
+    "publishedLineName": "24",
+    "vehicleMode": "bus"
+  },
+  "3350447622": {
+    "latitude": 60.4027721006423,
+    "longitude": 5.32117562368512,
+    "bearing": 29.3,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "3390123078": {
+    "latitude": 58.1703998800367,
+    "longitude": 7.85403680987656,
+    "bearing": 104.1,
+    "publishedLineName": "45",
+    "vehicleMode": "bus"
+  },
+  "1703": {
+    "latitude": 63.4099888,
+    "longitude": 10.3989142,
+    "bearing": 186,
+    "publishedLineName": "111",
+    "vehicleMode": "bus"
+  },
+  "3510509143": {
+    "latitude": 69.6507096849382,
+    "longitude": 19.0000263601542,
+    "bearing": 68.4,
+    "publishedLineName": "20",
+    "vehicleMode": "bus"
+  },
+  "3177": {
+    "latitude": 59.0556476,
+    "longitude": 5.9187965,
+    "bearing": 17.697025,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3390123608": {
+    "latitude": 58.4846125356853,
+    "longitude": 8.76541547477245,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3350377312": {
+    "latitude": 60.3613000363111,
+    "longitude": 5.13075998984277,
+    "bearing": 0,
+    "publishedLineName": "445",
+    "vehicleMode": "bus"
+  },
+  "3350453116": {
+    "latitude": 60.3651701286435,
+    "longitude": 5.36652063019574,
+    "bearing": 287.7,
+    "publishedLineName": "12",
+    "vehicleMode": "bus"
+  },
+  "3350447649": {
+    "latitude": 60.3491755295545,
+    "longitude": 5.28013908304274,
+    "bearing": 130.3,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "3350447527": {
+    "latitude": 60.385698499158,
+    "longitude": 5.31920872628689,
+    "bearing": 207.5,
+    "publishedLineName": "19",
+    "vehicleMode": "bus"
+  },
+  "3350453104": {
+    "latitude": 60.3561092913151,
+    "longitude": 5.36820245906711,
+    "bearing": 188.6,
+    "publishedLineName": "10",
+    "vehicleMode": "bus"
+  },
+  "258030970": {
+    "latitude": 68.2855133333333,
+    "longitude": 16.0393883333333,
+    "bearing": 150,
+    "publishedLineName": "18-703",
+    "vehicleMode": "ferry"
+  },
+  "MOR:Vehicle:254_1178": {
+    "latitude": 62.684814453125,
+    "longitude": 7.4659218788147,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "ferry"
+  },
+  "3350387019": {
+    "latitude": 60.2976000029594,
+    "longitude": 5.32813000492752,
+    "bearing": 0,
+    "publishedLineName": "22",
+    "vehicleMode": "bus"
+  },
+  "1678-2025-06-20": {
+    "latitude": 59.741128,
+    "longitude": 10.192512,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "rail"
+  },
+  "3350447613": {
+    "latitude": 60.4652771260589,
+    "longitude": 5.34391514025629,
+    "bearing": 0.56,
+    "publishedLineName": "4",
+    "vehicleMode": "bus"
+  },
+  "5515": {
+    "latitude": 59.4186693,
+    "longitude": 5.2702798,
+    "bearing": 154.91463,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "257741000": {
+    "latitude": 68.4116833333333,
+    "longitude": 16.02238,
+    "bearing": 335,
+    "publishedLineName": "18-703",
+    "vehicleMode": "ferry"
+  },
+  "3350447513": {
+    "latitude": 60.4819206520915,
+    "longitude": 5.40873700752854,
+    "bearing": 330.27,
+    "publishedLineName": "37",
+    "vehicleMode": "bus"
+  },
+  "3390123096": {
+    "latitude": 58.1475196313113,
+    "longitude": 7.98685401678085,
+    "bearing": 226.3,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "MOR:Vehicle:238_3513": {
+    "latitude": 62.7490577697754,
+    "longitude": 7.26109313964844,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3510509043": {
+    "latitude": 69.7088251076639,
+    "longitude": 18.9840900152922,
+    "bearing": 29.6,
+    "publishedLineName": "28",
+    "vehicleMode": "bus"
+  },
+  "3390123729": {
+    "latitude": 58.3692545816302,
+    "longitude": 8.6420938745141,
+    "bearing": 76.6,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "3610200371": {
+    "latitude": 59.9192165024579,
+    "longitude": 10.7355127483606,
+    "bearing": 79,
+    "publishedLineName": "FB5A",
+    "vehicleMode": "bus"
+  },
+  "3390123013": {
+    "latitude": 58.1411445233971,
+    "longitude": 7.97457595355809,
+    "bearing": 88.9,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  },
+  "VYB:VehicleRef:4159762": {
+    "latitude": 57.448887,
+    "longitude": 12.100272,
+    "bearing": 0,
+    "publishedLineName": null,
+    "vehicleMode": "bus"
+  }
+}
