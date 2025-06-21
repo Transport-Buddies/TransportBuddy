@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Siri version="2.0" xmlns="http://www.siri.org.uk/siri" xmlns:ns5="http://www.opengis.net/gml/3.2" xmlns:ns2="http://www.ifopt.org.uk/acsb" xmlns:ns4="http://datex2.eu/schema/2_0RC1/2_0" xmlns:ns3="http://www.ifopt.org.uk/ifopt">
+    <SubscriptionResponse>
+        <ResponseTimestamp>2025-06-09T03:56:30.389300407+02:00</ResponseTimestamp>
+        <ResponderRef>sub-e6137d04-3148-44b8-9040-5d72a3412de1</ResponderRef>
+        <RequestMessageRef>03d03a23-eddc-45ec-a563-c10828a44d53</RequestMessageRef>
+        <ResponseStatus>
+            <ResponseTimestamp>2025-06-09T03:56:30.3893032+02:00</ResponseTimestamp>
+            <RequestMessageRef>cce1fcc0-f872-4618-b0d5-8fc89fff7f8f</RequestMessageRef>
+            <SubscriptionRef>sub-e6137d04-3148-44b8-9040-5d72a3412de1</SubscriptionRef>
+            <Status>false</Status>
+            <ErrorCondition>
+                <OtherError>
+                    <ErrorText>ConsumerAddress must be set.</ErrorText>
+                </OtherError>
+            </ErrorCondition>
+        </ResponseStatus>
+        <ServiceStartedTime>2025-04-23T10:12:09.383371729+02:00</ServiceStartedTime>
+    </SubscriptionResponse>
+</Siri>

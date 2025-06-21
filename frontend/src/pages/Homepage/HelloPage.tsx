@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { FaHome, FaMapMarkedAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../Loader/Loader';
+import Loader from '../../components/Loader/Loader';
 import './HelloPage.css';
 
 const HelloPage: React.FC = () => {
