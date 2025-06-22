@@ -103,8 +103,6 @@ const MapPage: React.FC = () => {
       }
         vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
       });
-
-      // Optionally, remove markers for vehicles no longer present
       vehicleMarkersRef.current.forEach((value, id) => {
         if (!vehicles[id]) {
           if (value.animation) cancelAnimationFrame(value.animation);
