@@ -91,7 +91,7 @@ const MapPage: React.FC = () => {
           return;
         }
 
-        // Animate marker from prev to new position
+      // Animate marker from prev to new position
       if (prev) {
         // Update icon with new bearing
         const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
@@ -284,6 +284,8 @@ const MapPage: React.FC = () => {
             });
               // Call it once on map init
             // renderVehicleMarkers();
+
+            // Test marker for user location
             const userMarker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
             // userMarker.bindPopup('u are here').openPopup();
           }

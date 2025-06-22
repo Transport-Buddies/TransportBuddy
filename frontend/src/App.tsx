@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import HelloPage from './pages/HelloPage/HelloPage';
+import HelloPage from './pages/Homepage/Home';
 import MapPage from './pages/MapPage/MapPage';
 
 
