@@ -27,87 +27,88 @@ const Stop = mongoose.model('Stop', stopSchema);
 // just a test route(/hello), to see if the API is working.
 export const setRoutes = (app: Express) => {
     // Endpoint to get a static weather commentary
-    router.get('/weather-commentary', async (req, res) => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        const latitude = req.query.lat as string;
-        const longitude = req.query.lon as string;
-        const apiKey = process.env.OPENWEATHER_API_KEY;
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-        try {
-            const response = await axios.get(url);
-            // parse the openweather response for the current weather
-            const weatherData = response.data;
-            const currentWeather = {
-                temp: weatherData.main.temp,
-                description: weatherData.weather[0].description,
-                humidity: weatherData.main.humidity,
-                windSpeed: weatherData.wind.speed,
-                city: weatherData.name,
-            };
-            console.log('Current weather data:', currentWeather);
-            const commentary = await generateWeatherCommentary(JSON.stringify(currentWeather));
-            res.status(200).json({ commentary });
-        } catch (error) {
-            res.status(500).json({ error: 'Failed to fetch weather data' });
-        }
-    });
+  router.get('/weather-commentary', async (req, res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      const latitude = req.query.lat as string;
+      const longitude = req.query.lon as string;
+      const apiKey = process.env.OPENWEATHER_API_KEY;
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+      try {
+          const response = await axios.get(url);
+          // parse the openweather response for the current weather
+          const weatherData = response.data;
+          const currentWeather = {
+              temp: weatherData.main.temp,
+              description: weatherData.weather[0].description,
+              humidity: weatherData.main.humidity,
+              windSpeed: weatherData.wind.speed,
+              city: weatherData.name,
+          };
+          console.log('Current weather data:', currentWeather);
+          const commentary = await generateWeatherCommentary(JSON.stringify(currentWeather));
+          res.status(200).json({ commentary });
+      } catch (error) {
+          console.error('Error fetching weather data:', error);
+          res.status(500).json({ error: 'Failed to fetch weather data' });
+      }
+  });
 
-    router.get('/positions', (req, res) => {
+  router.get('/vehicles', async (req, res) => {
+    try {
         res.setHeader('Access-Control-Allow-Origin', '*');
-        res.json({ location: busLocation });
-    });
+        // const microserviceUrl = 'https://transport-buddy-microservice._norwayeast.cloudapp.azure.com/vehicles';
+        const microserviceUrl = 'http://localhost:5052/vehicles';
 
-    // will be used by c# to post the bus locations
-    router.post('/positions', (req, res) => {
-        const { shape_pt_lat, shape_pt_lon } = req.body;
-        // TODO: Make this lowercamelCase when c# endpoint is ready
-        if (typeof shape_pt_lat === 'number' && typeof shape_pt_lon === 'number') {
-        busLocation = { shape_pt_lat, shape_pt_lon };
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.status(200).json({ message: 'bus location updated' });
-        console.log(`Bus location updated to: ${JSON.stringify(busLocation)}`);
+        const response = await axios.get(microserviceUrl);
+
+        if (response.status === 200) {
+            const vehicles = response.data;
+            res.status(200).json(vehicles);
         } else {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.status(400).json({ error: 'Wrong format, pls make sure its { shape_pt_lat: latitude number, shape_pt_lon: longitude number }' });
+            res.status(response.status).json({ error: 'Failed to fetch vehicle data from microservice' });
         }
-    });
+    } catch (error) {
+        console.error('Error fetching vehicle data:', error);
+        res.status(500).json({ error: 'Failed to fetch vehicle data' });
+    }
+  });
 
-    router.get('/routes', async (req, res): Promise<void> => {
+  router.get('/routes', async (req, res): Promise<void> => {
     const { origin, destination } = req.query;
     // print getting origin and destination
     console.log(`Getting routes from ${origin} to ${destination}`);
     if (!origin || !destination) {
     res.status(400).json({ error: 'Origin and destination are required' });
     return;
-  }
-
-    const options = {
-    method: 'GET',
-    url: 'https://busmaps-gtfs-api.p.rapidapi.com/routes',
-    params: {
-      origin,
-      destination,
-      departureTime: new Date().toISOString(),
-      transfers: '1',
-    },
-    headers: {
-      'x-rapidapi-key': process.env.RAPIDAPI_KEY,
-      'x-rapidapi-host': 'busmaps-gtfs-api.p.rapidapi.com',
-    },
-  };
-  // console.log(options.headers['x-rapidapi-key']);
-  try {
-    if (!process.env.RAPIDAPI_KEY) {
-      throw new Error('RAPIDAPI_KEY is not defined in the .env file');
     }
-    const response = await axios.request(options);
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.status(200).json(response.data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to fetch routes' });
-  }
+      const options = {
+      method: 'GET',
+      url: 'https://busmaps-gtfs-api.p.rapidapi.com/routes',
+      params: {
+        origin,
+        destination,
+        departureTime: new Date().toISOString(),
+        transfers: '1',
+      },
+      headers: {
+        'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+        'x-rapidapi-host': 'busmaps-gtfs-api.p.rapidapi.com',
+      },
+    };
+    // console.log(options.headers['x-rapidapi-key']);
+    try {
+      if (!process.env.RAPIDAPI_KEY) {
+        throw new Error('RAPIDAPI_KEY is not defined in the .env file');
+      }
+      const response = await axios.request(options);
+
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(200).json(response.data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to fetch routes' });
+    }
   });
   // Endpoint to get stops within a certain radius of a given latitude and longitude
   router.get('/stops', async (req, res) => {
@@ -138,6 +139,5 @@ export const setRoutes = (app: Express) => {
       res.status(500).json({ error: 'Failed to fetch stops' });
     }
   });
-    
     app.use('/api', router);
 };

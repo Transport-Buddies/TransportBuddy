@@ -1,18 +1,57 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 
+// Demo for xml file with vehicle positions, used to populate the leaflet map, for test purposes.
+// record Vehicle(string id, double latitude, double longitude, double? bearing, string vehicleMode);
+
+// class Program
+// {
+//     static async Task Main()
+//     {
+//         var jsonFile = "test2.json";
+
+//         var builder = WebApplication.CreateBuilder();
+//         var app = builder.Build();
+//         app.Urls.Add("http://localhost:5052");
+
+//         app.MapGet("/vehicles", async (HttpContext context) =>
+//         {
+//             if (File.Exists(jsonFile))
+//             {
+//                 context.Response.ContentType = "application/json";
+//                 var jsonData = await File.ReadAllTextAsync(jsonFile);
+//                 await context.Response.WriteAsync(jsonData);
+//             }
+//             else
+//             {
+//                 context.Response.StatusCode = StatusCodes.Status404NotFound;
+//                 await context.Response.WriteAsync("JSON file not found.");
+//             }
+//         });
+
+//         Console.WriteLine("Listening on /vehicle...");
+//         await app.RunAsync();
+//     }
+// }
+
+// ###################################### DEMO for single vehicle #############################
 class Program
 {
     static async Task Main()
     {
         var jsonFile = "shape_points.json";
-        var url = "http://localhost:5000/api/positions";
 
         if (!File.Exists(jsonFile))
         {
@@ -63,33 +102,36 @@ class Program
             return;
         }
 
-        using var httpClient = new HttpClient();
         var index = 0;
-
-        while (true)
+        var currentPoint = new Dictionary<string, double>();
+        var updateTask = Task.Run(async () =>
         {
-            var point = points[index];
-            var shapedPoint = new Dictionary<string, double>
+            while (true)
             {
-                { "shape_pt_lat", point["lat"] },
-                { "shape_pt_lon", point["lon"] }
-            };
-
-            var content = new StringContent(JsonSerializer.Serialize(shapedPoint), Encoding.UTF8, "application/json");
-
-
-            try
-            {
-                var response = await httpClient.PostAsync(url, content);
-                Console.WriteLine($"Sent: {point["lat"]}, {point["lon"]} | Status: {response.StatusCode}");
+                currentPoint = points[index];
+                index = (index + 1) % points.Count;
+                await Task.Delay(4000); // Update every 4 seconds
             }
-            catch (Exception ex)
+        });
+        var builder = WebApplication.CreateBuilder();
+        var app = builder.Build();
+        app.Urls.Add("http://localhost:5052");
+        app.MapGet("/positions", async (HttpContext context) =>
+        {
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new Dictionary<string, double>
             {
-                Console.WriteLine($"Error sending point: {ex.Message}");
-            }
+                { "shape_pt_lat", currentPoint["lat"] },
+                { "shape_pt_lon", currentPoint["lon"] }
+            }));
+        });
 
-            index = (index + 1) % points.Count;
-            await Task.Delay(4000);
-        }
+        Console.WriteLine(" Listening on /positions...");
+        await app.RunAsync();
     }
 }
+
+
+
+// #########################################################################################################################
+

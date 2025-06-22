@@ -19,10 +19,6 @@ obj/
 
 */GtfsShapeImporter/shapes.txt
 
-
-# test env to see about xml formatting for the SIRI
-/misc/GtfsRealtimeVehicle/
-
 # Docker files
 docker-compose.override.yml
 *.env

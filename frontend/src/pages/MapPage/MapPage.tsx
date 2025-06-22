@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
 import { FaCircle, FaMapSigns, FaDotCircle, FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { createTransitIcon } from '../../components/TransitIcons/TransitIcon';
 import ReactDOMServer from 'react-dom/server';
 import polyline from '@mapbox/polyline';
 import 'leaflet/dist/leaflet.css';
@@ -24,6 +25,10 @@ const MapPage: React.FC = () => {
   //TODO: make a better algorithm for the bus marker movement
   const locationQueue = useRef<{ lat: number; lon: number }[]>([]);
   const isMoving = useRef(false);
+
+  const vehicleMarkersRef = useRef<Map<string, { marker: L.Marker, animation?: number }>>(new Map());
+  const vehiclePositionsRef = useRef<Map<string, { lat: number, lon: number }>>(new Map());
+  const animationDuration = 4000; // ms
 
   // State to hold origin/destination (as lat,lng strings)
   const [origin, setOrigin] = useState<string | null>(null);
@@ -65,6 +70,84 @@ const MapPage: React.FC = () => {
     iconSize: [24, 24],
     iconAnchor: [12, 12],
   });
+
+  const fetchAndAnimateVehicles = async () => {
+    if (!mapRef.current) return;
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles`);
+      const vehicles = await response.json();
+
+      Object.entries(vehicles).forEach(([id, vehicle]: [string, any]) => {
+        const { latitude, longitude, bearing, vehicleMode, publishedLineName } = vehicle;
+        const prev = vehiclePositionsRef.current.get(id);
+
+        // If marker doesn't exist, create it
+        if (!vehicleMarkersRef.current.has(id)) {
+          const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+          const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
+          marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
+          vehicleMarkersRef.current.set(id, { marker });
+          vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+          return;
+        }
+
+        // Animate marker from prev to new position
+      if (prev) {
+        // Update icon with new bearing
+        const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+        const markerObj = vehicleMarkersRef.current.get(id);
+        if (markerObj) {
+          markerObj.marker.setIcon(icon);
+        }
+        animateMarker(id, prev.lat, prev.lon, latitude, longitude);
+      }
+        vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+      });
+
+      // Optionally, remove markers for vehicles no longer present
+      vehicleMarkersRef.current.forEach((value, id) => {
+        if (!vehicles[id]) {
+          if (value.animation) cancelAnimationFrame(value.animation);
+          value.marker.remove();
+          vehicleMarkersRef.current.delete(id);
+          vehiclePositionsRef.current.delete(id);
+        }
+      });
+    } catch (err) {
+      console.error('Error fetching vehicles:', err);
+    }
+  };
+
+  const animateMarker = (id: string, startLat: number, startLon: number, endLat: number, endLon: number) => {
+    const markerObj = vehicleMarkersRef.current.get(id);
+    if (!markerObj) return;
+
+    let startTime: number | null = null;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const t = Math.min(elapsed / animationDuration, 1);
+
+      // Ease-in-out for now.
+      const easedT = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+      const lat = startLat + (endLat - startLat) * easedT;
+      const lon = startLon + (endLon - startLon) * easedT;
+
+      markerObj.marker.setLatLng([lat, lon]);
+
+      if (t < 1) {
+        markerObj.animation = requestAnimationFrame(step);
+      }
+    };
+
+    // Cancel any previous animation
+    if (markerObj.animation) {
+      cancelAnimationFrame(markerObj.animation);
+    }
+    markerObj.animation = requestAnimationFrame(step);
+  };
 
     // fetching and rendering stops on the map
   const fetchAndRenderStops = async () => {
@@ -137,6 +220,27 @@ const MapPage: React.FC = () => {
 
     map.setMinZoom(3);// Set minimum zoom level to 3, so the map doesn't break into loops
 
+    const renderVehicleMarkers = async () => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    try {
+      const response = await fetch("http://localhost:5000/api/vehicles");
+      const data = await response.json();
+
+      Object.entries(data).forEach(([id, vehicle]: [string, any]) => {
+      const { latitude, longitude, bearing, vehicleMode, publishedLineName } = vehicle;
+
+      const vehicleIcon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+      const marker = L.marker([latitude, longitude], { icon: vehicleIcon }).addTo(map);
+      marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
+      });
+    } catch (err) {
+      console.error("Error fetching vehicle data:", err);
+    }
+    };
+
+
     // home button below the zoom controls
     const HomeButton = L.Control.extend({
       options: { position: 'topleft' },
@@ -158,15 +262,6 @@ const MapPage: React.FC = () => {
     });
     map.addControl(new HomeButton());
 
-    // Bus Icon
-    const busIcon = L.divIcon({
-      className: 'custom-marker-icon',
-      html: ReactDOMServer.renderToString(<FaBus size={30} color="blue" />),
-      iconSize: [30, 30],
-      iconAnchor: [15, 30],
-    });
-    busMarkerRef.current = L.marker([58.969975, 5.733107], { icon: busIcon }).addTo(map);
-
     // tracks if the map component is still mounted. stops memory leaks and runtime errors
     let isMounted = true; 
 
@@ -175,7 +270,6 @@ const MapPage: React.FC = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           if (!isMounted) return; 
-
           const { latitude, longitude } = position.coords;
           userLocationRef.current = L.latLng(latitude, longitude);
 
@@ -188,7 +282,8 @@ const MapPage: React.FC = () => {
               iconSize: [30, 30], 
               iconAnchor: [15, 30], 
             });
-
+              // Call it once on map init
+            // renderVehicleMarkers();
             const userMarker = L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
             // userMarker.bindPopup('u are here').openPopup();
           }
@@ -217,70 +312,10 @@ const MapPage: React.FC = () => {
         setSettingMode(null);
       }
     });
-    // Fetch bus location every 5 seconds
-    const fetchBusLocation = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/positions`);
-        const data = await response.json();
-        const { shape_pt_lat, shape_pt_lon } = data.location;
-        locationQueue.current.push({ lat: shape_pt_lat, lon: shape_pt_lon });
-        if (!isMoving.current) processQueue();
-      } catch (error) {
-        console.error('Error fetching bus location:', error);
-      }
-    };
-    const processQueue = () => {
-      if (locationQueue.current.length === 0) {
-        isMoving.current = false;
-        return;
-      }
-      isMoving.current = true;
-      const next = locationQueue.current.shift();
-      if (next && busMarkerRef.current) {
-        smoothMoveMarker(
-          busMarkerRef.current.getLatLng().lat,
-          busMarkerRef.current.getLatLng().lng,
-          next.lat,
-          next.lon,
-          () => {
-            setTimeout(processQueue, 50);
-          }
-        );
-      }
-    };
-    // TODO: gotta make a better algorithm for smoothing the bus marker movement
-    const smoothMoveMarker = (
-      startLat: number,
-      startLon: number,
-      endLat: number,
-      endLon: number,
-      onComplete: () => void
-    ) => {
-      const duration = 4000;
-      const steps = 80;
-      const interval = duration / steps;
-      let step = 0;
-      const latStep = (endLat - startLat) / steps;
-      const lonStep = (endLon - startLon) / steps;
-      const animate = () => {
-        if (step < steps) {
-          const newLat = startLat + latStep * step;
-          const newLon = startLon + lonStep * step;
-          busMarkerRef.current!.setLatLng([newLat, newLon]);
-          step++;
-          setTimeout(animate, interval);
-        } else {
-          onComplete();
-        }
-      };
-      animate();
-    };
-    const intervalId = setInterval(fetchBusLocation, 4000);
     map.on('moveend', fetchAndRenderStops);
     map.on('zoomend', fetchAndRenderStops);
     return () => {
       isMounted = false;
-      clearInterval(intervalId);
       map.off('moveend', fetchAndRenderStops);
       map.off('zoomend', fetchAndRenderStops);
       if (mapRef.current) {
@@ -288,7 +323,18 @@ const MapPage: React.FC = () => {
         mapRef.current = null;
       }
     };
+
   }, [navigate]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchAndAnimateVehicles();
+    }, animationDuration);
+
+    fetchAndAnimateVehicles();
+
+    return () => clearInterval(intervalId);
+  }, []);
   
   useEffect(() => {
     fetchAndRenderStops();
@@ -386,7 +432,7 @@ const MapPage: React.FC = () => {
       console.error('Error fetching routes:', error);
     }
   };
-
+  
   // Coloring for the active route
   useEffect(() => {
      routePolylineRefs.current.forEach((entry) => {
