@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { FaHome, FaMapMarkedAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../components/Loader/Loader';
-import './HelloPage.css';
+import './Home.css';
 
 const HelloPage: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
