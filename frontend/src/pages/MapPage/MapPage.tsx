@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { useNavigate } from 'react-router-dom';
-import { FaCircle, FaMapSigns, FaDotCircle, FaBus, FaHome, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCircle, FaMapSigns, FaDotCircle, FaBus, FaHome, FaMapMarkerAlt, FaArrowLeft } from 'react-icons/fa';
 import { createTransitIcon } from '../../components/TransitIcons/TransitIcon';
+import { getSetting, getCurrentTileLayer, getEffectiveMapTheme } from '../../utils/settings';
 import ReactDOMServer from 'react-dom/server';
 import polyline from '@mapbox/polyline';
 import 'leaflet/dist/leaflet.css';
@@ -14,12 +15,21 @@ const MapPage: React.FC = () => {
   // useNavigate hook from react-router-dom to navigate between pages and useRef to keep track of the map instance
   const navigate = useNavigate();
   const mapRef = useRef<L.Map | null>(null); 
+  
+  // Add state to track current map bounds
+  const [mapBounds, setMapBounds] = useState<L.LatLngBounds | null>(null);
 
   // references for markers and polylines
   const originMarkerRef = useRef<L.Marker | null>(null);
   const destinationMarkerRef = useRef<L.Marker | null>(null);
   const busMarkerRef = useRef<L.Marker | null>(null);
   const routePolylineRefs = useRef<{ routeIndex: number; polyline: L.Polyline }[]>([]);
+  
+  // ref to track the current tile layer for theme switching
+  const tileLayerRef = useRef<L.TileLayer | null>(null);
+
+  // right click menu.
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; latlng: L.LatLng } | null>(null);
 
   // queue and animation refs for the bus
   //TODO: make a better algorithm for the bus marker movement
@@ -38,15 +48,87 @@ const MapPage: React.FC = () => {
   const [settingMode, setSettingMode] = useState<'origin' | 'destination' | null>(null);
   const settingModeRef = useRef<'origin' | 'destination' | null>(null);
 
-  // State for fetched routes and active route index
+  // State for fetched routes and route display
   const [routes, setRoutes] = useState<any[]>([]);
   const [activeRouteIndex, setActiveRouteIndex] = useState<number | null>(null);
   const [isRoutesVisible, setIsRoutesVisible] = useState<boolean>(true);
+  const [showingRouteDetails, setShowingRouteDetails] = useState<boolean>(false);
+  const [selectedRouteIndex, setSelectedRouteIndex] = useState<number | null>(null);
+
+  // State for panel retraction
+  const [isPanelExpanded, setIsPanelExpanded] = useState<boolean>(true);
+
+  // Toggle function for panel expansion/collapse
+  const togglePanel = () => {
+    setIsPanelExpanded(!isPanelExpanded);
+  };
 
   // a ref to hold all stop markers, to clear them when needed
   const stopMarkersRef = useRef<L.Marker[]>([]);
   // to keep track of when stops show up on the map. The higher, the more zoomed in you need to be to see it.
-  const minZoomfForStops = 15;
+  const [minZoomForStops, setMinZoomForStops] = useState<number>(15);
+
+  // Load settings from localStorage and listen for changes
+  useEffect(() => {
+    const loadMinZoom = () => {
+      const savedMinZoom = getSetting('minZoomForStops');
+      setMinZoomForStops(savedMinZoom);
+    };
+    
+    loadMinZoom();
+    
+    // Listen for storage changes (when settings are updated in another tab/component)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'minZoomForStops') {
+        loadMinZoom();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  // Listen for theme changes and update tile layer
+  useEffect(() => {
+    const updateTileLayer = () => {
+      const map = mapRef.current;
+      const currentTileLayer = tileLayerRef.current;
+      
+      if (!map || !currentTileLayer) return;
+      
+      // Get the new tile layer configuration
+      const newTileLayerConfig = getCurrentTileLayer();
+      
+      // Remove the current tile layer
+      map.removeLayer(currentTileLayer);
+      
+      // Add the new tile layer
+      const newTileLayer = L.tileLayer(newTileLayerConfig.url, {
+        attribution: newTileLayerConfig.attribution,
+        subdomains: newTileLayerConfig.subdomains,
+        maxZoom: newTileLayerConfig.maxZoom,
+      }).addTo(map);
+      
+      // Update the reference
+      tileLayerRef.current = newTileLayer;
+    };
+    
+    // Listen for storage changes that affect map theme
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'darkMode' || e.key === 'mapTheme') {
+        updateTileLayer();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   // you are here marker ref for getting closest bus stops
   const userLocationRef = useRef<L.LatLng | null>(null);
@@ -74,43 +156,85 @@ const MapPage: React.FC = () => {
   const fetchAndAnimateVehicles = async () => {
     if (!mapRef.current) return;
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles`);
+      // Get current map bounds
+      const bounds = mapBounds || mapRef.current.getBounds();
+      
+      // Send visible bounds to backend for lazy loading optimization
+      const visibleBounds = {
+        north: bounds.getNorth(),
+        south: bounds.getSouth(),
+        east: bounds.getEast(),
+        west: bounds.getWest()
+      };
+      
+      const queryParams = new URLSearchParams({
+        north: visibleBounds.north.toString(),
+        south: visibleBounds.south.toString(),
+        east: visibleBounds.east.toString(),
+        west: visibleBounds.west.toString()
+      });
+      
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles?${queryParams}`);
       const vehicles = await response.json();
+      
+      // Track which vehicles are currently visible
+      const visibleVehicleIds = new Set<string>();
+      
+      // Count total and visible vehicles for performance monitoring
+      const totalVehicles = Object.keys(vehicles).length;
+      let visibleVehicles = 0;
 
       Object.entries(vehicles).forEach(([id, vehicle]: [string, any]) => {
         const { latitude, longitude, bearing, vehicleMode, publishedLineName } = vehicle;
         const prev = vehiclePositionsRef.current.get(id);
-
-        // If marker doesn't exist, create it
-        if (!vehicleMarkersRef.current.has(id)) {
-          const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
-          const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
-          marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
-          vehicleMarkersRef.current.set(id, { marker });
+        
+        // Check if the vehicle is within the current map bounds
+        const isInBounds = bounds.contains([latitude, longitude]);
+        
+        // If the vehicle is in bounds, track it and display/animate it
+        if (isInBounds) {
+          visibleVehicleIds.add(id);
+          visibleVehicles++;
+          
+          // If marker doesn't exist, create it
+          if (!vehicleMarkersRef.current.has(id)) {
+            const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+            const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
+            marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
+            vehicleMarkersRef.current.set(id, { marker });
+            vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+            return;
+          }
+          
+          // Animate marker from prev to new position
+          if (prev) {
+            // Update icon with new bearing
+            const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+            const markerObj = vehicleMarkersRef.current.get(id);
+            if (markerObj) {
+              markerObj.marker.setIcon(icon);
+            }
+            animateMarker(id, prev.lat, prev.lon, latitude, longitude);
+          }
           vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
-          return;
+        } else {
+          // If marker exists but is no longer in view, hide it (don't remove it)
+          if (vehicleMarkersRef.current.has(id)) {
+            const markerObj = vehicleMarkersRef.current.get(id)!;
+            if (markerObj.animation) cancelAnimationFrame(markerObj.animation);
+            markerObj.marker.remove();
+            vehicleMarkersRef.current.delete(id);
+          }
+          // Keep position data for when it comes back into view
+          vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
         }
+      });
+      
+      // Don't remove any markers - let them be managed by the bounds checking above
 
-      // Animate marker from prev to new position
-      if (prev) {
-        // Update icon with new bearing
-        const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
-        const markerObj = vehicleMarkersRef.current.get(id);
-        if (markerObj) {
-          markerObj.marker.setIcon(icon);
-        }
-        animateMarker(id, prev.lat, prev.lon, latitude, longitude);
-      }
-        vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
-      });
-      vehicleMarkersRef.current.forEach((value, id) => {
-        if (!vehicles[id]) {
-          if (value.animation) cancelAnimationFrame(value.animation);
-          value.marker.remove();
-          vehicleMarkersRef.current.delete(id);
-          vehiclePositionsRef.current.delete(id);
-        }
-      });
+      // Log performance improvement
+      console.log(`Vehicle optimization: Showing ${visibleVehicles} of ${totalVehicles} vehicles (${Math.round((visibleVehicles/totalVehicles)*100)}%)`);
+      
     } catch (err) {
       console.error('Error fetching vehicles:', err);
     }
@@ -152,7 +276,7 @@ const MapPage: React.FC = () => {
     const map = mapRef.current;
       if (!map) return;
       // stops don't show when zoomed out too far. crashed my pc without this check
-      if (map.getZoom() < minZoomfForStops) {
+      if (map.getZoom() < minZoomForStops) {
         stopMarkersRef.current.forEach((m) => m.remove());
         stopMarkersRef.current = [];
       return;
@@ -204,19 +328,52 @@ const MapPage: React.FC = () => {
     }
   };
 
+  // Parse URL query parameters to get origin and destination
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const originParam = urlParams.get('origin');
+    const destinationParam = urlParams.get('destination');
+    
+    if (originParam) {
+      const [lat, lng] = originParam.split(',').map(Number);
+      setOrigin(`${lat},${lng}`);
+    }
+    
+    if (destinationParam) {
+      const [lat, lng] = destinationParam.split(',').map(Number);
+      setDestination(`${lat},${lng}`);
+    }
+  }, []);
+
   //initialize the map and set up event listeners
   useEffect(() => {
     // Initial view set to Stavanger, i'm not imaginative :(
     const map = L.map('map').setView([58.969975, 5.733107], 13); 
     mapRef.current = map; 
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19,
-    }).addTo(map);
+    // Set initial bounds
+    setMapBounds(map.getBounds());
+    
+    // Update bounds when map moves or zooms
+    map.on('moveend', () => {
+      setMapBounds(map.getBounds());
+    });
+    
+    map.on('zoomend', () => {
+      setMapBounds(map.getBounds());
+    });
 
-    map.setMinZoom(3);// Set minimum zoom level to 3, so the map doesn't break into loops
+    // Initialize with the appropriate tile layer based on current theme
+    const tileLayerConfig = getCurrentTileLayer();
+    const tileLayer = L.tileLayer(tileLayerConfig.url, {
+      attribution: tileLayerConfig.attribution,
+      subdomains: tileLayerConfig.subdomains,
+      maxZoom: tileLayerConfig.maxZoom,
+    }).addTo(map);
+    
+    tileLayerRef.current = tileLayer;
+
+    map.setMinZoom(10);// Set minimum zoom level to 10, so all vehicles dont load at once and the map doesn't break into loops
 
     const renderVehicleMarkers = async () => {
     const map = mapRef.current;
@@ -237,28 +394,6 @@ const MapPage: React.FC = () => {
       console.error("Error fetching vehicle data:", err);
     }
     };
-
-
-    // home button below the zoom controls
-    const HomeButton = L.Control.extend({
-      options: { position: 'topleft' },
-      onAdd: () => {
-        const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-        div.style.display = 'flex';
-        div.style.alignItems = 'center';
-        div.style.justifyContent = 'center';
-        div.style.backgroundColor = 'white';
-        div.style.border = '1px solid #ccc';
-        div.style.borderRadius = '4px';
-        div.style.padding = '5px';
-        div.style.cursor = 'pointer';
-        div.style.boxShadow = '0 2px 6px rgba(58, 58, 58, 0.2)';
-        div.innerHTML = ReactDOMServer.renderToString(<FaHome size={20} style={{ color: 'currentColor' }}/>);
-        div.onclick = () => navigate('/');
-        return div;
-      },
-    });
-    map.addControl(new HomeButton());
 
     // tracks if the map component is still mounted. stops memory leaks and runtime errors
     let isMounted = true; 
@@ -312,8 +447,16 @@ const MapPage: React.FC = () => {
         setSettingMode(null);
       }
     });
-    map.on('moveend', fetchAndRenderStops);
-    map.on('zoomend', fetchAndRenderStops);
+    map.on('moveend', () => {
+      fetchAndRenderStops();
+      // Update map bounds state
+      setMapBounds(map.getBounds());
+    });
+    map.on('zoomend', () => {
+      fetchAndRenderStops();
+      // Update map bounds state
+      setMapBounds(map.getBounds());
+    });
     return () => {
       isMounted = false;
       map.off('moveend', fetchAndRenderStops);
@@ -326,15 +469,23 @@ const MapPage: React.FC = () => {
 
   }, [navigate]);
 
+  // Fetch vehicles when map bounds change
+  useEffect(() => {
+    if (mapBounds) {
+      fetchAndAnimateVehicles();
+    }
+  }, [mapBounds]);
+
+  // Regular interval updates for real-time tracking (even when map isn't moving)
   useEffect(() => {
     const intervalId = setInterval(() => {
       fetchAndAnimateVehicles();
-    }, animationDuration);
-
-    fetchAndAnimateVehicles();
-
+    }, 5000);
+    
     return () => clearInterval(intervalId);
   }, []);
+
+  // Vehicles fetching is now handled by both the bounds change and interval
   
   useEffect(() => {
     fetchAndRenderStops();
@@ -415,10 +566,11 @@ const MapPage: React.FC = () => {
 
           const sectionPoly = L.polyline(coords, style).addTo(mapRef.current!);
 
-          // When any part of a route is clicked, select the whole route logic
+          // When any part of a route is clicked, select the whole route and show details
           sectionPoly.on('click', () => {
             setActiveRouteIndex(i);
-            setRoutes([route]);
+            setSelectedRouteIndex(i);
+            setShowingRouteDetails(true);
           });
 
           // Add the polyline to the map
@@ -435,71 +587,234 @@ const MapPage: React.FC = () => {
   
   // Coloring for the active route
   useEffect(() => {
-     routePolylineRefs.current.forEach((entry) => {
-    entry.polyline.setStyle({
-      color: entry.routeIndex === activeRouteIndex ? 'black' : 'gray',
-      opacity: entry.routeIndex === activeRouteIndex ? 1 : 0.4,
-     dashArray: entry.polyline.options.dashArray || undefined,
+    routePolylineRefs.current.forEach((entry) => {
+      entry.polyline.setStyle({
+        color: entry.routeIndex === activeRouteIndex ? 'black' : 'gray',
+        opacity: entry.routeIndex === activeRouteIndex ? 1 : 0.4,
+        dashArray: entry.polyline.options.dashArray || undefined,
       });
     });
   }, [activeRouteIndex]);
   
+  // Fetch routes when both origin and destination are set
+  useEffect(() => {
+    if (origin && destination) {
+      fetchAndDisplayRoutes();
+    }
+  }, [origin, destination]);
+  
+    
+  // Function to show detailed instructions for a route
+  const showRouteDetails = (index: number) => {
+    setSelectedRouteIndex(index);
+    setShowingRouteDetails(true);
+    setActiveRouteIndex(index); 
+  };
+
   return (
-    <div id="map-container">
-      <div id="map" style={{ height: '100vh', width: '100%' }} />
+    <div id="map-container" style={{ display: 'flex', height: '100vh', width: '100vw' }}>
+      {/* Left side panel */}
+      <div 
+        className={`bg-gray-800 text-white p-6 flex flex-col justify-between z-[1000] overflow-auto sidebar-scrollbar transition-all duration-300 ease-in-out ${
+          isPanelExpanded ? 'w-[220px]' : 'w-[60px]'
+        }`}
+      >
+        {/* Toggle button */}
+        <div className="flex justify-between items-center mb-4">
+          {isPanelExpanded && (
+            <div className="flex-1">
+              {showingRouteDetails ? (
+                <button
+                  onClick={() => setShowingRouteDetails(false)}
+                  className="text-gray-400 hover:text-white flex items-center"
+                >
+                  &lt; Back to Routes
+                </button>
+              ) : (
+                <button
+                  onClick={() => navigate('/')}
+                  className="flex items-center space-x-2 text-gray-400 hover:text-white"
+                >
+                  <FaArrowLeft size={20}/> <span>Back to Home</span>
+                </button>
+              )}
+            </div>
+          )}
+        </div>
 
-      <div className="controls" style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 1000 }}>
+        <div className={`flex-1 ${isPanelExpanded ? '' : 'hidden'}`}>
+          {!showingRouteDetails && (
+            <>
+              <div className="mb-6">
+                <p className="text-xs text-gray-400">Origin</p>
+                <p className="font-bold">{origin || 'Not set'}</p>
+              </div>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <p className="text-xs text-gray-400">Destination</p>
+                <p className="font-bold">{destination || 'Not set'}</p>
+              </div>
+            </>
+          )}
+
+          <hr className="border-gray-600 my-6" />
+
+          {/* Show all routes list or detailed route view */}
+          {showingRouteDetails && selectedRouteIndex !== null && routes[selectedRouteIndex] ? (
+            <div>
+              <h3 className="font-bold mb-4 text-lg">Route Details</h3>
+              
+              <div className="mb-4">
+                <p className="text-xs text-gray-400">Distance</p>
+                <p className="font-bold">{(routes[selectedRouteIndex].distance / 1609).toFixed(1)} miles</p>
+              </div>
+
+              <div className="mb-4">
+                <p className="text-xs text-gray-400">Estimated Time</p>
+                <p className="font-bold">{Math.round(routes[selectedRouteIndex].duration / 60)} minutes</p>
+              </div>
+              
+              <div className="mt-4">
+                <h4 className="text-sm font-medium mb-2">Steps:</h4>
+                <ul className="space-y-3">
+                  {routes[selectedRouteIndex].sections.map((section: any, index: number) => {
+                    if (section.type === 'pedestrian') {
+                      const destinationName = section.arrival?.place?.name || 'your destination';
+                      return (
+                        <li key={index} className="pl-2 border-l-2 border-gray-600">
+                          <span className="font-medium">Walk</span> to <span className="font-medium">{destinationName}</span>
+                          <div className="text-xs text-gray-400">{Math.round(section.distance)} meters</div>
+                        </li>
+                      );
+                    }
+                    if (section.type === 'transit') {
+                      const mode = section.transport?.mode?.toLowerCase() || '';
+                      const transitName = section.transport?.shortName || section.transport?.name || 'unknown';
+                      const from = section.departure?.place?.name || 'unknown stop';
+                      const to = section.arrival?.place?.name || 'unknown stop';
+                      const isTrain = mode.includes('rail') || mode.includes('train') || /^l\d+$/i.test(transitName);
+                      
+                      return (
+                        <li key={index} className="pl-2 border-l-2 border-gray-600">
+                          Take <span className="font-medium">{isTrain ? 'Train' : 'Bus'} {transitName}</span> from <span className="font-medium">{from}</span> to <span className="font-medium">{to}</span>
+                          <div className="flex items-center mt-1">
+                            <div className="h-2 w-2 rounded-full bg-green-400 mr-2"></div>
+                            <div className="text-xs">{section.departure?.time?.substring(11, 16) || ''}</div>
+                            <div className="mx-1 text-xs">→</div>
+                            <div className="text-xs">{section.arrival?.time?.substring(11, 16) || ''}</div>
+                          </div>
+                        </li>
+                      );
+                    }
+                    return null;
+                  })}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <>
+              {routes.length > 0 && (
+                <div>
+                  <h3 className="font-bold mb-4">Available Routes</h3>
+                  <div className="space-y-4">
+                    {routes.map((route, index) => (
+                      <div 
+                        key={index}
+                        className={`p-3 rounded-md cursor-pointer transition-all route-item ${activeRouteIndex === index ? 'bg-gray-700' : 'bg-gray-900 hover:bg-gray-700'}`}
+                        onClick={() => showRouteDetails(index)}
+                      >
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="font-bold">Route {index + 1}</div>
+                          <div className="text-sm">{Math.round(route.duration / 60)} min</div>
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {route.sections.map((section: any) => {
+                            if (section.type === 'transit') {
+                              const mode = section.transport?.mode?.toLowerCase() || '';
+                              const transitName = section.transport?.shortName || '';
+                              const isTrain = mode.includes('rail') || mode.includes('train') || /^l\d+$/i.test(transitName);
+                              return (
+                                <span key={section.id} className="mr-1">
+                                  {isTrain ? '🚆' : '🚌'} {transitName}
+                                </span>
+                              );
+                            }
+                            return null;
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        <div className={`text-xs text-gray-600 mt-6 ${isPanelExpanded ? '' : 'hidden'}`}>
+          Transport Buddy © 2025
+        </div>
+      </div>
+
+      {/* Map */}
+      <div
+        id="map"
+        style={{ flexGrow: 1 }}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          const containerPoint = mapRef.current?.mouseEventToContainerPoint(e.nativeEvent as MouseEvent);
+          const latlng = mapRef.current?.containerPointToLatLng(containerPoint!);
+          if (latlng) {
+            setContextMenu({ x: e.clientX, y: e.clientY, latlng });
+          }
+          if (contextMenu && Math.abs(e.clientX - contextMenu.x) < 10 && Math.abs(e.clientY - contextMenu.y) < 10) {
+            setContextMenu(null);
+            return;
+          }
+        }}
+      >
+        {/* Floating Panel Toggle Button */}
         <button
+          onClick={togglePanel}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-[1001] bg-gray-800 text-white p-3 rounded-lg shadow-lg hover:bg-gray-700 transition-all duration-200 border border-gray-600"
+          title={isPanelExpanded ? "Collapse panel" : "Expand panel"}
+        >
+          {isPanelExpanded ? '⫷' : '☰'}
+        </button>
+      </div>
+      {contextMenu && (
+      <div
+        className="absolute bg-gray-800 text-white rounded shadow-lg"
+        style={{
+          left: contextMenu.x,
+          top: contextMenu.y,
+          padding: '8px 0',
+          zIndex: 2000,
+          minWidth: '160px'
+        }}
+        onMouseLeave={() => setContextMenu(null)}
+      >
+        <div
+          className="p-2 cursor-pointer"
           onClick={() => {
-            setSettingMode('origin');
-          }}
-          style={{
-            marginRight: '8px',
-            backgroundColor: settingMode === 'origin' ? '#808080' : '#ffffff',
-            color: settingMode === 'origin' ? '#ffffff' : '#000000',
-            border: '1px solid #ccc',
-            padding: '6px 12px',
-            borderRadius: '4px',
-            cursor: 'pointer',
+            setOrigin(`${contextMenu.latlng.lat},${contextMenu.latlng.lng}`);
+            setContextMenu(null);
           }}
         >
-          {origin ? `Origin Set` : `Set Origin`}
-        </button>
+          Set as Origin
+        </div>
 
-        <button
+        <div
+          className="p-2 cursor-pointer"
           onClick={() => {
-            setSettingMode('destination');
-          }}
-          style={{
-            marginRight: '8px',
-            backgroundColor: settingMode === 'destination' ? '#808080' : '#ffffff',
-            color: settingMode === 'destination' ? '#ffffff' : '#000000',
-            border: '1px solid #ccc',
-            padding: '6px 12px',
-            borderRadius: '4px',
-            cursor: 'pointer',
+            setDestination(`${contextMenu.latlng.lat},${contextMenu.latlng.lng}`);
+            setContextMenu(null);
           }}
         >
-          {destination ? `Destination Set` : `Set Destination`}
-        </button>
+          Set as Destination
+        </div>
 
-        <button
-          onClick={fetchAndDisplayRoutes}
-          disabled={!origin || !destination}
-          style={{
-            marginRight: '8px',
-            backgroundColor: !origin || !destination ? '#dddddd' : '#000000',
-            color: !origin || !destination ? '#666666' : '#ffffff',
-            border: '1px solid #ccc',
-            padding: '6px 12px',
-            borderRadius: '4px',
-            cursor: !origin || !destination ? 'not-allowed' : 'pointer',
-          }}
-        >
-          Get Routes
-        </button>
-
-        <button
+        <div
+          className="p-2 cursor-pointer"
           onClick={() => {
             setOrigin(null);
             setDestination(null);
@@ -507,78 +822,15 @@ const MapPage: React.FC = () => {
             setActiveRouteIndex(null);
             if (originMarkerRef.current) originMarkerRef.current.remove();
             if (destinationMarkerRef.current) destinationMarkerRef.current.remove();
-            routePolylineRefs.current.forEach((entry) => {
-              entry.polyline.remove();
-            });
+            routePolylineRefs.current.forEach((entry) => entry.polyline.remove());
             routePolylineRefs.current = [];
-          }}
-          style={{
-            backgroundColor: '#000000',
-            color: '#ffffff',
-            border: '1px solid #ccc',
-            padding: '6px 12px',
-            borderRadius: '4px',
-            cursor: 'pointer',
+            setContextMenu(null);
           }}
         >
           Reset
-        </button>
-      </div>
-
-      <button
-        className="toggle-button"
-        onClick={() => setIsRoutesVisible(!isRoutesVisible)}
-      >
-        {isRoutesVisible ? 'Hide Routes' : 'Show Routes'}
-      </button>
-
-      <div className={`route-panel ${isRoutesVisible ? 'visible' : 'hidden'}`}>
-        <div style={{ padding: '0.5rem 1rem' }}>
-            <h3>&gt; Routes</h3>
         </div>
-        {routes.length > 0 ? (
-          <ul>
-            {routes.map((route, routeIndex) => (
-              <li key={routeIndex}>
-                <p>Duration: {Math.round(route.duration / 60)} mins</p>
-                <ul>
-                  {route.sections.map((section: any, index: number) => {
-                    if (section.type === 'pedestrian') {
-                      const destinationName = section.arrival.place?.name || 'your destination';
-                      return (
-                        <li key={index}>
-                          Walk to <strong>{destinationName}</strong>
-                        </li>
-                      );
-                    }
-                    if (section.type === 'transit') {
-                      const mode = section.transport?.mode?.toLowerCase() || '';
-                      const transitName = section.transport?.shortName || section.transport?.name || 'unknown';
-                      const from = section.departure.place?.name || 'unknown stop';
-                      const to = section.arrival.place?.name || 'unknown stop';
-                      // couldn't deferentiate bus and train(for now), so using regex to check if the name starts with 'l' and is followed by digits.
-                      //TODO: add a better way to differentiate bus and train
-                      const isTrain = mode.includes('rail') || mode.includes('train') || /^l\d+$/i.test(transitName);
-                      return (
-                        <li key={index}>
-                          Take <strong>{isTrain ? 'Train' : 'Bus'} {transitName}</strong> from <strong>{from}</strong> to <strong>{to}</strong>
-                        </li>
-                      );
-                    }
-                    return null;
-                  })}
-                </ul>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div style={{ padding: '0.5rem 1rem' }}><p>
-              {!origin || !destination
-                ? 'So far only doing clicks to set origin and destination. Click the buttons above to set them.'
-                : 'Now click "Get Routes" to see available routes.'}
-            </p></div>
-        )}
       </div>
+    )}
     </div>
   );
 };

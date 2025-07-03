@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence, motion } from 'framer-motion';
 import HelloPage from './pages/Homepage/Home';
 import MapPage from './pages/MapPage/MapPage';
+import Settings from './pages/Settings/Settings';
 
 
 const App: React.FC = () => {
@@ -34,6 +35,19 @@ const App: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <MapPage />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Settings />
             </motion.div>
           }
         />

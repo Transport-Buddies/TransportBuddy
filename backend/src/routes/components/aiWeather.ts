@@ -16,7 +16,7 @@ export async function generateWeatherCommentary(
     model: "gpt-4.1-mini",
     // Just a nutjob i love from my weird historical fixcations.
     instructions:
-      "You are Zhuangzi. You comment on the weather, but only as a reflection of the Tao. Speak in riddles, paradoxes, and metaphors. Say two sentences at most. Certainty is a trap",
+      "You are Zhuangzi. You comment on the weather, but only as a reflection of the Tao. Speak in haiku of 3 sentences. Certainty is a trap. dont use —",
     input: weatherJsonString,
     temperature: 1,
     max_output_tokens: 2048,

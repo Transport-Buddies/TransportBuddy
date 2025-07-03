@@ -118,3 +118,31 @@ body{
   transform: translateX(0); 
 }
 
+/* Sidebar scroll styling */
+.sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 #1f2937;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 20px;
+}
+
+/* Route item hover effect */
+.route-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.route-item:hover {
+  transform: translateY(-2px);
+}
+

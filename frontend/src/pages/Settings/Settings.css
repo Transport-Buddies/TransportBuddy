@@ -1,0 +1,185 @@
+/* Custom slider styling for light mode */
+.slider-light {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: linear-gradient(to right, #374151 0%, #374151 50%, #e5e7eb 50%, #e5e7eb 100%);
+  outline: none;
+  border-radius: 4px;
+}
+
+.slider-light::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #374151;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+.slider-light::-webkit-slider-thumb:hover {
+  background: #1f2937;
+  transform: scale(1.1);
+}
+
+.slider-light::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #374151;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease-in-out;
+}
+
+.slider-light::-moz-range-thumb:hover {
+  background: #1f2937;
+  transform: scale(1.1);
+}
+
+/* Custom slider styling for dark mode */
+.slider-dark {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: linear-gradient(to right, #e5e7eb 0%, #e5e7eb 50%, #4b5563 50%, #4b5563 100%);
+  outline: none;
+  border-radius: 4px;
+}
+
+.slider-dark::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #e5e7eb;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease-in-out;
+}
+
+.slider-dark::-webkit-slider-thumb:hover {
+  background: #f3f4f6;
+  transform: scale(1.1);
+}
+
+.slider-dark::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #e5e7eb;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease-in-out;
+}
+
+.slider-dark::-moz-range-thumb:hover {
+  background: #f3f4f6;
+  transform: scale(1.1);
+}
+
+/* Smooth transitions for all interactive elements */
+button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom focus styles for light mode */
+.slider-light:focus {
+  box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+}
+
+/* Custom focus styles for dark mode */
+.slider-dark:focus {
+  box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.1);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+}
+
+/* Dark mode button focus */
+.dark-mode button:focus {
+  box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.1);
+}
+
+/* Animation for the success message */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.success-message {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Gray-750 for better dark mode contrast */
+.bg-gray-750 {
+  background-color: #2d3748;
+}
+
+/* Global dark mode styles */
+.dark-mode {
+  color-scheme: dark;
+}
+
+/* Settings page specific scrolling styles */
+.settings-page {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.settings-content {
+  min-height: 100vh;
+  padding-bottom: 2rem; /* Extra space at bottom for better UX */
+}
+
+/* Custom scrollbar for Settings page */
+.settings-page::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settings-page::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.settings-page::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 4px;
+}
+
+.settings-page::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Dark mode scrollbar */
+.dark-mode .settings-page::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+.dark-mode .settings-page::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Firefox scrollbar styling */
+.settings-page {
+  scrollbar-width: thin;
+  scrollbar-color: #9ca3af transparent;
+}
+
+.dark-mode .settings-page {
+  scrollbar-color: #4b5563 transparent;
+}
