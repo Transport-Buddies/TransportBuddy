@@ -1,3 +1,5 @@
+`This was an initial README template meant for a partner. Updating soon...`
+
 # Transport Buddy
 
 Transport Buddy is a full-stack application that consists of a React frontend and an Express backend.
