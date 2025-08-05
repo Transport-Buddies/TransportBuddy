@@ -77,7 +77,6 @@ const Settings: React.FC = () => {
             
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <FaCog className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`} size={24} />
                 <h1 className={`text-2xl font-bold ${darkMode ? 'text-gray-100' : 'text-gray-800'}`}>Settings</h1>
               </div>
             </div>

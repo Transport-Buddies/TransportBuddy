@@ -153,93 +153,138 @@ const MapPage: React.FC = () => {
     iconAnchor: [12, 12],
   });
 
+  // const fetchAndAnimateVehicles = async () => {
+  //   if (!mapRef.current) return;
+  //   try {
+  //     // Get current map bounds
+  //     const bounds = mapBounds || mapRef.current.getBounds();
+      
+  //     // Send visible bounds to backend for lazy loading optimization
+  //     const visibleBounds = {
+  //       north: bounds.getNorth(),
+  //       south: bounds.getSouth(),
+  //       east: bounds.getEast(),
+  //       west: bounds.getWest()
+  //     };
+      
+  //     const queryParams = new URLSearchParams({
+  //       north: visibleBounds.north.toString(),
+  //       south: visibleBounds.south.toString(),
+  //       east: visibleBounds.east.toString(),
+  //       west: visibleBounds.west.toString()
+  //     });
+      
+  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles?${queryParams}`);
+  //     const vehicles = await response.json();
+      
+  //     // Track which vehicles are currently visible
+  //     const visibleVehicleIds = new Set<string>();
+      
+  //     // Count total and visible vehicles for performance monitoring
+  //     const totalVehicles = Object.keys(vehicles).length;
+  //     let visibleVehicles = 0;
+
+  //     Object.entries(vehicles).forEach(([id, vehicle]: [string, any]) => {
+  //       const { latitude, longitude, bearing, vehicleMode, publishedLineName } = vehicle;
+  //       const prev = vehiclePositionsRef.current.get(id);
+        
+  //       // Check if the vehicle is within the current map bounds
+  //       const isInBounds = bounds.contains([latitude, longitude]);
+        
+  //       // If the vehicle is in bounds, track it and display/animate it
+  //       if (isInBounds) {
+  //         visibleVehicleIds.add(id);
+  //         visibleVehicles++;
+          
+  //         // If marker doesn't exist, create it
+  //         if (!vehicleMarkersRef.current.has(id)) {
+  //           const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+  //           const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
+  //           marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
+  //           vehicleMarkersRef.current.set(id, { marker });
+  //           vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+  //           return;
+  //         }
+          
+  //         // Animate marker from prev to new position
+  //         if (prev) {
+  //           // Update icon with new bearing
+  //           const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+  //           const markerObj = vehicleMarkersRef.current.get(id);
+  //           if (markerObj) {
+  //             markerObj.marker.setIcon(icon);
+  //           }
+  //           animateMarker(id, prev.lat, prev.lon, latitude, longitude);
+  //         }
+  //         vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+  //       } else {
+  //         // If marker exists but is no longer in view, hide it (don't remove it)
+  //         if (vehicleMarkersRef.current.has(id)) {
+  //           const markerObj = vehicleMarkersRef.current.get(id)!;
+  //           if (markerObj.animation) cancelAnimationFrame(markerObj.animation);
+  //           markerObj.marker.remove();
+  //           vehicleMarkersRef.current.delete(id);
+  //         }
+  //         // Keep position data for when it comes back into view
+  //         vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+  //       }
+  //     });
+      
+  //     // Don't remove any markers - let them be managed by the bounds checking above
+
+  //     // Log performance improvement
+  //     console.log(`Vehicle optimization: Showing ${visibleVehicles} of ${totalVehicles} vehicles (${Math.round((visibleVehicles/totalVehicles)*100)}%)`);
+      
+  //   } catch (err) {
+  //     console.error('Error fetching vehicles:', err);
+  //   }
+  // };
+
+
   const fetchAndAnimateVehicles = async () => {
     if (!mapRef.current) return;
     try {
-      // Get current map bounds
-      const bounds = mapBounds || mapRef.current.getBounds();
-      
-      // Send visible bounds to backend for lazy loading optimization
-      const visibleBounds = {
-        north: bounds.getNorth(),
-        south: bounds.getSouth(),
-        east: bounds.getEast(),
-        west: bounds.getWest()
-      };
-      
-      const queryParams = new URLSearchParams({
-        north: visibleBounds.north.toString(),
-        south: visibleBounds.south.toString(),
-        east: visibleBounds.east.toString(),
-        west: visibleBounds.west.toString()
-      });
-      
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles?${queryParams}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/vehicles`);
       const vehicles = await response.json();
-      
-      // Track which vehicles are currently visible
-      const visibleVehicleIds = new Set<string>();
-      
-      // Count total and visible vehicles for performance monitoring
-      const totalVehicles = Object.keys(vehicles).length;
-      let visibleVehicles = 0;
 
       Object.entries(vehicles).forEach(([id, vehicle]: [string, any]) => {
         const { latitude, longitude, bearing, vehicleMode, publishedLineName } = vehicle;
         const prev = vehiclePositionsRef.current.get(id);
-        
-        // Check if the vehicle is within the current map bounds
-        const isInBounds = bounds.contains([latitude, longitude]);
-        
-        // If the vehicle is in bounds, track it and display/animate it
-        if (isInBounds) {
-          visibleVehicleIds.add(id);
-          visibleVehicles++;
-          
-          // If marker doesn't exist, create it
-          if (!vehicleMarkersRef.current.has(id)) {
-            const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
-            const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
-            marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
-            vehicleMarkersRef.current.set(id, { marker });
-            vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
-            return;
-          }
-          
-          // Animate marker from prev to new position
-          if (prev) {
-            // Update icon with new bearing
-            const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
-            const markerObj = vehicleMarkersRef.current.get(id);
-            if (markerObj) {
-              markerObj.marker.setIcon(icon);
-            }
-            animateMarker(id, prev.lat, prev.lon, latitude, longitude);
-          }
+
+        // If marker doesn't exist, create it
+        if (!vehicleMarkersRef.current.has(id)) {
+          const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+          const marker = L.marker([latitude, longitude], { icon }).addTo(mapRef.current!);
+          marker.bindPopup(`<strong>Line:</strong> ${publishedLineName || id}`);
+          vehicleMarkersRef.current.set(id, { marker });
           vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
-        } else {
-          // If marker exists but is no longer in view, hide it (don't remove it)
-          if (vehicleMarkersRef.current.has(id)) {
-            const markerObj = vehicleMarkersRef.current.get(id)!;
-            if (markerObj.animation) cancelAnimationFrame(markerObj.animation);
-            markerObj.marker.remove();
-            vehicleMarkersRef.current.delete(id);
-          }
-          // Keep position data for when it comes back into view
-          vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+          return;
+        }
+
+      // Animate marker from prev to new position
+      if (prev) {
+        // Update icon with new bearing
+        const icon = createTransitIcon({ id: publishedLineName || id, bearing, vehicleMode });
+        const markerObj = vehicleMarkersRef.current.get(id);
+        if (markerObj) {
+          markerObj.marker.setIcon(icon);
+        }
+        animateMarker(id, prev.lat, prev.lon, latitude, longitude);
+      }
+        vehiclePositionsRef.current.set(id, { lat: latitude, lon: longitude });
+      });
+      vehicleMarkersRef.current.forEach((value, id) => {
+        if (!vehicles[id]) {
+          if (value.animation) cancelAnimationFrame(value.animation);
+          value.marker.remove();
+          vehicleMarkersRef.current.delete(id);
+          vehiclePositionsRef.current.delete(id);
         }
       });
-      
-      // Don't remove any markers - let them be managed by the bounds checking above
-
-      // Log performance improvement
-      console.log(`Vehicle optimization: Showing ${visibleVehicles} of ${totalVehicles} vehicles (${Math.round((visibleVehicles/totalVehicles)*100)}%)`);
-      
     } catch (err) {
       console.error('Error fetching vehicles:', err);
     }
   };
-
   const animateMarker = (id: string, startLat: number, startLon: number, endLat: number, endLon: number) => {
     const markerObj = vehicleMarkersRef.current.get(id);
     if (!markerObj) return;

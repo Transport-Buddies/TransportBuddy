@@ -53,7 +53,7 @@ const VehicleData = mongoose.model('VehicleData', vehicleDataSchema);
 const StopTime = mongoose.model('StopTime', stopTimeSchema);
 
 // initial test bus
-let busLocation = { shape_pt_lat: 58.969975, shape_pt_lon: 5.733107 };
+// let busLocation = { shape_pt_lat: 58.969975, shape_pt_lon: 5.733107 };
 
 // GTFS Data interfaces
 interface GTFSRoute {
@@ -342,44 +342,67 @@ export const setRoutes = (app: Express) => {
         }
     });
 
-    // Enhanced vehicles endpoint with route resolution
+    // Enhanced vehicles endpoint with route resolution(not efficient.)
+    // router.get('/vehicles', async (req, res) => {
+    //     try {
+    //         res.setHeader('Access-Control-Allow-Origin', '*');
+    //         const microserviceUrl = 'https://transport-buddy-microservice.norwayeast.cloudapp.azure.com/vehicles';
+    //         // const microserviceUrl = 'http://localhost:5052/vehicles';
+
+    //         const response = await axios.get(microserviceUrl);
+
+    //         if (response.status === 200) {
+    //             const vehicles = response.data;
+                
+    //             // Extract visible bounds from query parameters for lazy loading
+    //             let visibleBounds = undefined;
+    //             const { north, south, east, west } = req.query;
+                
+    //             if (north && south && east && west) {
+    //                 visibleBounds = {
+    //                     north: parseFloat(north as string),
+    //                     south: parseFloat(south as string),
+    //                     east: parseFloat(east as string),
+    //                     west: parseFloat(west as string)
+    //                 };
+    //                 console.log('Lazy loading: Processing vehicles within bounds:', visibleBounds);
+    //             }
+                
+    //             // Enhance vehicle data with route resolution (lazy loading if bounds provided)
+    //             const enhancedVehicles = await enhanceVehicleData(vehicles, visibleBounds);
+                
+    //             res.status(200).json(enhancedVehicles);
+    //         } else {
+    //             res.status(response.status).json({ error: 'Failed to fetch vehicle data from microservice' });
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching vehicle data:', error);
+    //         res.status(500).json({ error: 'Failed to fetch vehicle data' });
+    //     }
+    // });
+
     router.get('/vehicles', async (req, res) => {
-        try {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            const microserviceUrl = 'https://transport-buddy-microservice.norwayeast.cloudapp.azure.com/vehicles';
-            // const microserviceUrl = 'http://localhost:5052/vehicles';
+    try {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        const microserviceUrl = 'https://transport-buddy-microservice.norwayeast.cloudapp.azure.com/vehicles';
+        // const microserviceUrl = 'http://localhost:5052/vehicles';
 
-            const response = await axios.get(microserviceUrl);
+        const response = await axios.get(microserviceUrl);
 
-            if (response.status === 200) {
-                const vehicles = response.data;
+        if (response.status === 200) {
+            const vehicles = response.data;
+            // const enhancedVehicles = await enhanceVehicleData(vehicles);
                 
-                // Extract visible bounds from query parameters for lazy loading
-                let visibleBounds = undefined;
-                const { north, south, east, west } = req.query;
-                
-                if (north && south && east && west) {
-                    visibleBounds = {
-                        north: parseFloat(north as string),
-                        south: parseFloat(south as string),
-                        east: parseFloat(east as string),
-                        west: parseFloat(west as string)
-                    };
-                    console.log('Lazy loading: Processing vehicles within bounds:', visibleBounds);
-                }
-                
-                // Enhance vehicle data with route resolution (lazy loading if bounds provided)
-                const enhancedVehicles = await enhanceVehicleData(vehicles, visibleBounds);
-                
-                res.status(200).json(enhancedVehicles);
-            } else {
-                res.status(response.status).json({ error: 'Failed to fetch vehicle data from microservice' });
-            }
-        } catch (error) {
-            console.error('Error fetching vehicle data:', error);
-            res.status(500).json({ error: 'Failed to fetch vehicle data' });
+            // res.status(200).json(enhancedVehicles);
+            res.status(200).json(vehicles);
+        } else {
+            res.status(response.status).json({ error: 'Failed to fetch vehicle data from microservice' });
         }
-    });
+    } catch (error) {
+        console.error('Error fetching vehicle data:', error);
+        res.status(500).json({ error: 'Failed to fetch vehicle data' });
+    }
+  });
 
   router.get('/routes', async (req, res): Promise<void> => {
     const { origin, destination } = req.query;
