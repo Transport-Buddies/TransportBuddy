@@ -1,8 +1,10 @@
-`This was an initial README template meant for a partner. Updating soon...`
-
 # Transport Buddy
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cbc8b9bc-15a4-4637-903e-4d5756c6ddd2" alt="Desktop view" height="400">
+  <img src="https://github.com/user-attachments/assets/e5597e20-fea1-47ad-850b-ee21d1a04827" alt="Mobile view" height="400">
+</p>
 
-Transport Buddy is a full-stack application that consists of a React frontend and an Express backend.
+Transport Buddy is a full-stack application that consists of a React frontend and an Express backend. With a .NET microservice application to modernize entur's Pub/Sub stream in to JSON as opposed to xml.
 
 ## Project Structure
 
