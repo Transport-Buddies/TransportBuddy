@@ -7,7 +7,7 @@
         <ResponseStatus>
             <ResponseTimestamp>2025-06-09T03:56:30.3893032+02:00</ResponseTimestamp>
             <RequestMessageRef>cce1fcc0-f872-4618-b0d5-8fc89fff7f8f</RequestMessageRef>
-            <SubscriptionRef>sub-e6137d04-3148-44b8-9040-5d72a3412de1</SubscriptionRef>
+            <!-- <SubscriptionRef>Subkey</SubscriptionRef> -->
             <Status>false</Status>
             <ErrorCondition>
                 <OtherError>
