@@ -73,11 +73,12 @@ Transport_buddy
 ### Locally Running the Application
 
 1. Start the Express server (important to start the backend server first):
-
+  
    ```
    cd backend
    npm run dev
    ```
+   * Get the subscription key from Entur to use the Pub/Sub stream.
 
 2. In a new terminal, start the React application:
 
