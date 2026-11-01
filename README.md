@@ -115,7 +115,3 @@ Transport_buddy
    ```
    docker-compose logs
    ```
-
-## Usage
-
-So far, only displays a simple "Hello, World!" message on the client-side.
